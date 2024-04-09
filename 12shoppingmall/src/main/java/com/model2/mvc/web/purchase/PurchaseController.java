@@ -140,7 +140,7 @@ public class PurchaseController {
 	}
 	
 	
-	/// user가 상품 구매할 때
+	/// admin이 client에게 상품 보낼 때
 	@GetMapping("/updateTranCodeByProd")
 	public ModelAndView updateTranCodeByProd(@RequestParam Integer prodNo, @RequestParam String tranCode) throws SQLException {
 		// controller에서 다른 컨트롤러를 호출할 수도 있다! (forward 사용하면 기존 request 유지 가능)
@@ -164,7 +164,7 @@ public class PurchaseController {
 		return mv;
 	}
 	
-	/// admin이 상품 구매 로직 컨트롤할 때
+	/// user가 상품 구매할 때
 	/*
 	 *  @RequestParam :: QueryString에서 parsing한 데이터 가져옴.
 	 *  		required :: 해당 Query Parameter가 필수로 존재해야 하는가? (default = true)

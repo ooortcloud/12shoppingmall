@@ -65,12 +65,45 @@
 		}
 		fncGetProductList(document.getElementById("currentPage").value );	
 	}
+	
+	function doDelivary(event) {
+		
+		// event.target :: 현재 event가 발생한 element를 참조
+		$.ajax({
+			
+			url : "/rest/purchase/updateTranCodeByProd",
+			method : "POST",
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+			dataType:"JSON",
+			data : JSON.stringify({
+				prodNo : event.target.id,
+				tranCode : 2
+			}),
+			success : function(responseBody, httpStatus) {
+				$(event.target).text("배송 중");
+			}
+		});
+	}
 
 	
 	$(function() {
 		
 		$('button:contains("검색")').on('click', function() {
 			document.getElementById('detailForm').submit();
+		});
+	});
+	
+	$( function() {
+		
+		$('table span').css('color', 'blue');
+		
+		$('table span').on('mouseover', function() {
+			$('table span').css('cursor', 'pointer');
+		}).on('mouseout', function() {
+			$('table span').css('cursor', 'default');
 		});
 	});
 </script>
@@ -138,7 +171,7 @@
 					// switch 문 내에서는 type까지 고려하여 비교함 ('===')
 					switch(presentState) {
 						case '1':
-							temp += "<a id='doDelivery' href='/purchase/updateTranCodeByProd?prodNo="+item.prodNo+"&tranCode=2'>client에게 배송하기</a>";
+							temp += "<span id='"+item.prodNo+"' onclick='javascript:doDelivary()'>client에게 배송하기</span>";
 							break;
 						case '2':
 							temp += "배송 중";
@@ -415,7 +448,8 @@
 									<c:choose>
 										<c:when test="${presentState == 1 }">
 											<!-- <span id="doDelivary">client에게 배송하기</span>  --> 
-											<a id="doDelivery" href='/purchase/updateTranCodeByProd?prodNo=${product.prodNo }&tranCode=2'><strong> client에게 배송하기</strong></a> 
+											<%-- <a href='/purchase/updateTranCodeByProd?prodNo=${product.prodNo }&tranCode=2'></a> --%>
+											<span id='${product.prodNo}' onclick='javascript:doDelivary(event)'>client에게 배송하기</span>
 										</c:when><c:when test="${presentState == 2 }">
 											배송 중	
 										</c:when><c:when test="${presentState == 3 }">
