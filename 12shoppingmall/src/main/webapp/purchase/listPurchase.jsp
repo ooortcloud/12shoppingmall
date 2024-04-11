@@ -42,33 +42,49 @@
 	function fncGetPurchaseList() {
 		document.detailForm.submit();
 	}
+	
+	function notifyArrival(event) {
+		
+		$( function() {
+				
+				$.ajax({
+					
+					url : "/rest/purchase/updateTranCode",
+					method : "POST",
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					dataType :"JSON",
+					data : JSON.stringify({
+						tranNo : event.target.id,
+						tranCode : "3"
+						
+					}),
+					success : function(responseBody, httpStatus) {
+						
+						console.log('flag');
+						$(event.target).empty();
+						console.log($('#'+event.target.id).text());
+						$('td#'+event.target.id).text("현재 배송완료 상태 입니다.");
+					}
+				});
+		});
+	}
 
 </script>
 
-<!-- 
-<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	
-	$( function() {
-
-			$('#modifier1').on('click', function() {
-				$(window.parent.frame['rightFrame'].document.location).attr('href', '/purchase/getPurchase?tranNo=${purchase.tranNo }');
-			}).css('color', 'blue').on('mouseover', function() {
-				$(this).css('cursor', 'pointer');
-			}).on('mouseout', function() {
-				$(this).css('cursor', 'default');
-			});
-
-			$('#modifier2').on('click', function() {
-				$(window.parent.frame['rightFrame'].document.location).attr('href', '/purchase/updateTranCode?tranNo=${purchase.tranNo }&tranCode=3');
-			}).css('color', 'blue').on('mouseover', function() {
-				$(this).css('cursor', 'pointer');
-			}).on('mouseout', function() {
-				$(this).css('cursor', 'default');
-			});
+	$(function() {
+		
+		$('tbody span').css('color', 'blue').on('mouseover', function() {
+			$(this).css('cursor', 'pointer');
+		}).on('mouseout', function() {
+			$(this).css('cursor', 'default');
+		});
 	});
 </script>
- -->
     
 </head>
 
@@ -119,7 +135,7 @@
 				<td>${purchase.purchaseProd.prodName }</td>
 				<td>${purchase.orderDate }</td>
 				<%-- tran_state_code : "1" = "구매완료", "2" = "배송중", "3" = "배송완료" --%>
-				<td>
+				<td id="${purchase.tranNo }">
 					<c:if test="${ purchase.tranCode == 1 }">
 						현재 구매완료 상태입니다.
 					</c:if><c:if test="${ purchase.tranCode == 2 }">
@@ -134,7 +150,9 @@
 						<a href="/purchase/getPurchase?tranNo=${purchase.tranNo }">구매 정보 확인 및 수정</a> 
 					</c:if><c:if test="${purchase.tranCode == 2 }">
 						<!-- <span id="modifier2">물건 도착 알리기</span>  -->
-						<a href="/purchase/updateTranCode?tranNo=${purchase.tranNo }&tranCode=3">물건 도착 알리기</a>   
+						<%--<a href="/purchase/updateTranCode?tranNo=${purchase.tranNo }&tranCode=3">물건 도착 알리기</a>  --%>
+						<span id="${purchase.tranNo }" onclick="notifyArrival(event)">물건 도착 알리기</span>
+						<p>   
 					</c:if>
 				</td>
 			</tr>

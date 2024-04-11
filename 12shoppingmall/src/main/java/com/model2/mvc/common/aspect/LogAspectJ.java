@@ -3,11 +3,16 @@ package com.model2.mvc.common.aspect;
 import java.util.Arrays;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Component;
 
 /*
  * FileName : PojoAspectJ.java
  *	:: XML 에 선언적으로 aspect 의 적용   
   */
+@Aspect  // Spring AOP 적용
+@Component
 public class LogAspectJ {
 
 	///Constructor
@@ -16,6 +21,7 @@ public class LogAspectJ {
 	}
 	
 	//Around  Advice
+	@Around("execution(* com.model2.mvc.service..*Impl.*(..) )")  // join point는 around로 정의, point-cut 정의
 	public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable {
 			
 		System.out.println("");

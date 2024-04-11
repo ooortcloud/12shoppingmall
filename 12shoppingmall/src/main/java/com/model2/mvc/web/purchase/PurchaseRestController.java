@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.dto.UpdateTranCodeByProdDto;
+import com.model2.mvc.service.dto.UpdateTranCodeDto;
 import com.model2.mvc.service.purchase.PurchaseService;
 
 @RestController
@@ -36,7 +37,6 @@ public class PurchaseRestController {
 	@PostMapping("/updateTranCodeByProd")
 	public Boolean updateTranCodeByProd(@RequestBody UpdateTranCodeByProdDto dto) throws SQLException {
 		
-		System.out.println("flag");
 		System.out.println(dto);
 		Purchase purchase = new Purchase();
 		Product product = new Product();
@@ -57,4 +57,24 @@ public class PurchaseRestController {
 			return false;
 	}
 	
+	@PostMapping("/updateTranCode")
+	public boolean updateTranCode(@RequestBody UpdateTranCodeDto dto) throws Exception {
+		
+		System.out.println(dto);
+		Purchase purchase = new Purchase();
+		
+		// prod_no로 업데이트인지, tran_no로 업데이트인지 확인 (이 메소드로 배송중, 배송완료 둘 다 처리하려고 함)
+		Product product = new Product();
+		product.setProdNo(-1);
+		purchase.setPurchaseProd(product);
+		purchase.setTranNo(dto.getTranNo());
+		purchase.setTranCode("3");
+		
+		int result = service.updateTranCode(purchase);
+		
+		if(result == 1)
+			return true;
+		else
+			return false;
+	}
 }

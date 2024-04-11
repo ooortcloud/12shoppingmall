@@ -140,6 +140,7 @@ public class PurchaseController {
 	}
 	
 	
+	/*
 	/// admin이 client에게 상품 보낼 때
 	@GetMapping("/updateTranCodeByProd")
 	public ModelAndView updateTranCodeByProd(@RequestParam Integer prodNo, @RequestParam String tranCode) throws SQLException {
@@ -163,6 +164,7 @@ public class PurchaseController {
 		
 		return mv;
 	}
+	*/
 	
 	/// user가 상품 구매할 때
 	/*

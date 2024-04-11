@@ -98,9 +98,8 @@
 	
 	$( function() {
 		
-		$('table span').css('color', 'blue');
-		
-		$('table span').on('mouseover', function() {
+		$('table span:contains("client")').css('color', 'blue')
+		.on('mouseover', function() {
 			$('table span').css('cursor', 'pointer');
 		}).on('mouseout', function() {
 			$('table span').css('cursor', 'default');
