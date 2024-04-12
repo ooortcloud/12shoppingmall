@@ -13,7 +13,7 @@ import com.model2.mvc.service.user.UserDao;
 
 
 //==> 회원관리 DAO CRUD 구현
-@Repository("userDaoImpl")
+// @Repository("userDaoImpl")  << @Mapper interface로 대체
 public class UserDaoImpl implements UserDao{
 	
 	///Field

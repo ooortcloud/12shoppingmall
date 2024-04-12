@@ -33,6 +33,7 @@ CREATE TABLE product (
 	price 							NUMBER(10),
 	image_file 					VARCHAR2(100),
 	reg_date 					DATE,
+	inventory	NUMBER(5)	NOT NULL,
 	PRIMARY KEY(prod_no)
 );
 
@@ -54,7 +55,7 @@ CREATE TABLE transaction (
 
 INSERT 
 INTO users ( user_id, user_name, password, role, ssn, cell_phone, addr, email, reg_date ) 
-VALUES ( 'admin', 'admin', '1234', 'admin', NULL, NULL, '¼­¿ï½Ã ¼­ÃÊ±¸', 'admin@mvc.com',to_date('2012/01/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS')); 
+VALUES ( 'admin', 'admin', '1234', 'admin', NULL, NULL, 'ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê±ï¿½', 'admin@mvc.com',to_date('2012/01/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS')); 
 
 INSERT 
 INTO users ( user_id, user_name, password, role, ssn, cell_phone, addr, email, reg_date ) 
@@ -118,21 +119,21 @@ INSERT INTO users
 VALUES ( 'user19', 'SCOTT', '1919', 'user', NULL, NULL, NULL, NULL, sysdate);
            
            
-insert into product values (seq_product_prod_no.nextval,'vaio vgn FS70B','¼Ò´Ï ¹ÙÀÌ¿À ³ëÆ®ºÏ ½Åµ¿Ç°','20120514',2000000, 'AHlbAAAAtBqyWAAA.jpg',to_date('2012/12/14 11:27:27', 'YYYY/MM/DD HH24:MI:SS'));
-insert into product values (seq_product_prod_no.nextval,'ÀÚÀü°Å','ÀÚÀü°Å ÁÁ¾Æ¿ä~','20120514',10000, 'AHlbAAAAvetFNwAA.jpg',to_date('2012/11/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS'));
-insert into product values (seq_product_prod_no.nextval,'º¸¸£µµ','ÃÖ°í µðÀÚÀÎ ½ÅÇ°','20120201',1170000, 'AHlbAAAAvewfegAB.jpg',to_date('2012/10/14 10:49:39', 'YYYY/MM/DD HH24:MI:SS'));
-insert into product values (seq_product_prod_no.nextval,'º¸µå¼¼Æ®','ÇÑ½ÃÁð ¹Û¿¡ ¾È½è½À´Ï´Ù. ´«¹°À» ¸Ó±Ý°í ³»³õÀ½ ¤Ð.¤Ð','20120217', 200000, 'AHlbAAAAve1WwgAC.jpg',to_date('2012/11/14 10:50:58', 'YYYY/MM/DD HH24:MI:SS'));
-insert into product values (seq_product_prod_no.nextval,'ÀÎ¶óÀÎ','ÁÁ¾Æ¿é','20120819', 20000, 'AHlbAAAAve37LwAD.jpg',to_date('2012/11/14 10:51:40', 'YYYY/MM/DD HH24:MI:SS'));
-insert into product values (seq_product_prod_no.nextval,'»ï¼º¼¾½º 2G','sens ¸Þ¸ð¸® 2Giga','20121121',800000, 'AHlbAAAAtBqyWAAA.jpg',to_date('2012/11/14 18:46:58', 'YYYY/MM/DD HH24:MI:SS'));
-insert into product values (seq_product_prod_no.nextval,'¿¬²É','Á¤¿øÀ» °¡²ãº¸¼¼¿ä','20121022',232300, 'AHlbAAAAtDPSiQAA.jpg',to_date('2012/11/15 17:39:01', 'YYYY/MM/DD HH24:MI:SS'));
-insert into product values (seq_product_prod_no.nextval,'»ï¼º¼¾½º','³ëÆ®ºÏ','20120212',600000, 'AHlbAAAAug1vsgAA.jpg',to_date('2012/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval,'vaio vgn FS70B','ï¿½Ò´ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Åµï¿½Ç°','20120514',2000000, 'AHlbAAAAtBqyWAAA.jpg',to_date('2012/12/14 11:27:27', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval,'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½~','20120514',10000, 'AHlbAAAAvetFNwAA.jpg',to_date('2012/11/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval,'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½','ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°','20120201',1170000, 'AHlbAAAAvewfegAB.jpg',to_date('2012/10/14 10:49:39', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval,'ï¿½ï¿½ï¿½å¼¼Æ®','ï¿½Ñ½ï¿½ï¿½ï¿½ ï¿½Û¿ï¿½ ï¿½È½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó±Ý°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.ï¿½ï¿½','20120217', 200000, 'AHlbAAAAve1WwgAC.jpg',to_date('2012/11/14 10:50:58', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval,'ï¿½Î¶ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½Æ¿ï¿½','20120819', 20000, 'AHlbAAAAve37LwAD.jpg',to_date('2012/11/14 10:51:40', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval,'ï¿½ï¼ºï¿½ï¿½ï¿½ï¿½ 2G','sens ï¿½Þ¸ï¿½ 2Giga','20121121',800000, 'AHlbAAAAtBqyWAAA.jpg',to_date('2012/11/14 18:46:58', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval,'ï¿½ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ãº¸ï¿½ï¿½ï¿½ï¿½','20121022',232300, 'AHlbAAAAtDPSiQAA.jpg',to_date('2012/11/15 17:39:01', 'YYYY/MM/DD HH24:MI:SS'));
+insert into product values (seq_product_prod_no.nextval,'ï¿½ï¼ºï¿½ï¿½ï¿½ï¿½','ï¿½ï¿½Æ®ï¿½ï¿½','20120212',600000, 'AHlbAAAAug1vsgAA.jpg',to_date('2012/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'));
 
 
 commit;
 
 
 
-//== Page Ã³¸®À» À§ÇÑ SQL ±¸¼º¿¬½À
+//== Page Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ SQL ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 SELECT user_id , user_name , email
 FROM users

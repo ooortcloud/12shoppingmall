@@ -21,7 +21,7 @@ public class LogAspectJ {
 	}
 	
 	//Around  Advice
-	@Around("execution(* com.model2.mvc.service..*Impl.*(..) )")  // join point는 around로 정의, point-cut 정의
+	@Around("execution(* com.model2.mvc.service..*.*(..) )")  // join point는 around로 정의, point-cut 정의
 	public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable {
 			
 		System.out.println("");

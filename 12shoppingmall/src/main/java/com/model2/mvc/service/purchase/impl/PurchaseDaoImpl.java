@@ -17,7 +17,7 @@ import com.model2.mvc.service.product.ProductDao;
 import com.model2.mvc.service.purchase.PurchaseDao;
 import com.model2.mvc.service.user.UserDao;
 
-@Repository("purchaseDaoImpl")
+// @Repository("purchaseDaoImpl")  << @Mapper interface·Î ´ëÃ¼
 public class PurchaseDaoImpl implements PurchaseDao {
 
 	@Autowired

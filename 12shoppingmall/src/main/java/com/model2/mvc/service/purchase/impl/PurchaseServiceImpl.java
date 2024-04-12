@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
@@ -16,10 +17,17 @@ import com.model2.mvc.service.purchase.PurchaseDao;
 import com.model2.mvc.service.purchase.PurchaseService;
 
 @Service("purchaseServiceImpl")
+//=============================================================/
+//우선순위 1 : 메소드에 설정된 @Transactional
+//우선순위 2 : 클래스에 설정된 @Transactional
+//우선순위 3 : 인터페이스에 설정된 @Transactional
+//======================== 추가된 부분  ==========================/
+@Transactional  // transaction metadata 추가
 public class PurchaseServiceImpl implements PurchaseService {
 
 	@Autowired
-	@Qualifier("purchaseDaoImpl")
+	// @Qualifier("purchaseDaoImpl")
+	@Qualifier("purchaseDao")  // @Mapper interface의 구현체를 받자.
 	private PurchaseDao purchaseDao;
 	
 	public PurchaseServiceImpl() {

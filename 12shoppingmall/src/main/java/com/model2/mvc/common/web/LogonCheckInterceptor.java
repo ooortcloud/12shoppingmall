@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.model2.mvc.service.domain.User;
@@ -20,6 +21,7 @@ import com.model2.mvc.service.domain.User;
  *    ==> 로그인한 회원이면 Controller 호출 : true return
  *    ==> 비 로그인한 회원이면 Controller 미 호출 : false return
  */
+@Component
 public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 
 	///Field

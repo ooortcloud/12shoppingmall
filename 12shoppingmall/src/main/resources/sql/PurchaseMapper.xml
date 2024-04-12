@@ -4,7 +4,9 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		
-<mapper namespace="PurchaseMapper">
+<!-- Spring boot에서는 직접 sqlSessionTemplate 객체 사용 안하므로, FQCN으로 명시해줘야 함. -->
+<!-- <mapper namespace="PurchaseMapper">  -->
+<mapper namespace="com.model2.mvc.service.purchase.PurchaseDao">
 	
 	<resultMap id="purchaseSelectMap" type="com.model2.mvc.service.domain.Purchase">
 		<result property="tranNo" column="tran_no" jdbcType="NUMERIC" />

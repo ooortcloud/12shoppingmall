@@ -4,7 +4,9 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		
-<mapper namespace="ProductMapper">
+<!-- Spring boot에서는 직접적으로 sqlSessionTemplate 객체를 다루지 않으므로, namespace를 FQCN으로 명시해줘야 함. -->
+<!-- <mapper namespace="ProductMapper">  -->
+<mapper namespace="com.model2.mvc.service.product.ProductDao">
 
 	<resultMap id="productSelectMap" type="com.model2.mvc.service.domain.Product">
 		<result property="prodNo" column="prod_no" jdbcType="INTEGER" />
@@ -14,6 +16,9 @@
 		<result property="price" column="price" jdbcType="INTEGER" />
 		<result property="fileName" column="image_file" jdbcType="VARCHAR" />
 		<result property="regDate" column="reg_date" jdbcType="DATE" />
+		<!-- jdbcType을 NUMBER로 하면 error 난다... -->
+		<result property="inventory" column="inventory" jdbcType="INTEGER" />
+		
 		<!-- Join table의 결과값이더라도 미리 매핑이 가능함! -->
 		<result property="proTranCode" column="tran_status_code" jdbcType="VARCHAR" />
 	</resultMap>
@@ -22,9 +27,9 @@
 	<!-- INSERT -->
 	<insert id="addProduct" parameterType="product">
 		INSERT INTO
-		product (prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date)
+		product (prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date, inventory)
 		<!-- NOT NULL 제약조건을 걸어두지 않은 것들은, 상이한 타입에 대한 null 입력을 위한 JDBC setNull 메소드를 적용하기 위해서 jdbcType 설정해줘야 함. -->
-		VALUES (seq_product_prod_no.nextval, #{prodName}, #{prodDetail:VARCHAR}, #{manuDate, jdbcType=VARCHAR}, #{price:INTEGER}, #{fileName:VARCHAR}, SYSDATE)
+		VALUES (seq_product_prod_no.nextval, #{prodName}, #{prodDetail:VARCHAR}, #{manuDate, jdbcType=VARCHAR}, #{price:INTEGER}, #{fileName:VARCHAR}, SYSDATE, #{inventory:INTEGER})
 	</insert>
 
 	<!-- SELECT ONE -->
@@ -39,7 +44,7 @@
 	<!-- SELECT LIST -->
 	<!-- sql 태그는 mybatis에 종속적이므로, 코드 중복 발생하더라도 풀어헤쳐서 작성하는 것이 더 좋다고 판단함. -->
 	<select id="getProductList" parameterType="search" resultMap="productSelectMap">
-		<!-- CHAR타입으로 인한 공백을 제거해준다. -->
+
 		SELECT
 		*
 		FROM (

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.User;
@@ -16,11 +17,18 @@ import com.model2.mvc.service.user.UserDao;;
 
 //==> 회원관리 서비스 구현
 @Service("userServiceImpl")
+//=============================================================/
+//우선순위 1 : 메소드에 설정된 @Transactional
+//우선순위 2 : 클래스에 설정된 @Transactional
+//우선순위 3 : 인터페이스에 설정된 @Transactional
+//======================== 추가된 부분  ==========================/
+@Transactional  // transaction metadata 추가
 public class UserServiceImpl implements UserService{
 	
 	///Field
 	@Autowired
-	@Qualifier("userDaoImpl")
+	// @Qualifier("userDaoImpl")
+	@Qualifier("userDao")  // @Mapper interface의 구현체를 받자.
 	private UserDao userDao;
 	
 	/*

@@ -4,8 +4,9 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="UserMapper">
- 	
+<!-- Spring boot에서는 SqlSessionTemplate 객체를 사용하지 않으므로, 직접 FQCN 명시해줘야 함. -->
+<!-- <mapper namespace="UserMapper">  -->
+<mapper namespace="com.model2.mvc.service.user.UserDao">
  	
 	<resultMap id="userSelectMap" type="user">
 		<result property="userId" 			column="user_id" 			jdbcType="VARCHAR"/>

@@ -13,7 +13,7 @@ import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.product.ProductDao;
 
 // annotation 기반 metadata 작성법을 쓰지 않으면, 각각의 도메인에 대한 DI metadata 관리 파일까지 따로 구현해야만 함...
-@Repository("productDaoImpl")
+// @Repository("productDaoImpl")  << @Mapper interface로 대체
 public class ProductDaoImpl implements ProductDao {
 	
 	@Autowired

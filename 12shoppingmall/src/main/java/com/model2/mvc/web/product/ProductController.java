@@ -122,7 +122,6 @@ public class ProductController {
 				if(file.exists()) {
 					StringTokenizer temp = new StringTokenizer( product.getManuDate(), "-" );  // delim 넣어줘야 split해줌
 					product.setManuDate( temp.nextToken() + temp.nextToken() + temp.nextToken() );
-					System.out.println("flag :: " + product);
 					service.addProduct(product);  // id는 sequence에 의해 auto increment
 					model.addAttribute("product", product);  // setter...
 				}
@@ -245,6 +244,7 @@ public class ProductController {
 		// priceDESC null string 들어올 때 bug 해결 (null check 안하면 isEmpty()에서 null pointer error)
 		if( search.getPriceDESC() != null && search.getPriceDESC().isEmpty())
 			search.setPriceDESC(null);
+		
 		Map<String, Object> map = service.getProductList(search);
 		
 		Page myPage = new Page(search.getCurrentPage(), (Integer) map.get("totalCount"),pageUnit, pageSize);

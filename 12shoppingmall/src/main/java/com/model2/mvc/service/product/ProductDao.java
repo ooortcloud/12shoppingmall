@@ -3,9 +3,12 @@ package com.model2.mvc.service.product;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 
+@Mapper
 public interface ProductDao {
 	public int insertProduct(Product product) throws Exception;
 	
