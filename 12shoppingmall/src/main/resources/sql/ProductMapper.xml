@@ -25,7 +25,7 @@
 	
 	
 	<!-- INSERT -->
-	<insert id="addProduct" parameterType="product">
+	<insert id="insertProduct" parameterType="product">
 		INSERT INTO
 		product (prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date, inventory)
 		<!-- NOT NULL 제약조건을 걸어두지 않은 것들은, 상이한 타입에 대한 null 입력을 위한 JDBC setNull 메소드를 적용하기 위해서 jdbcType 설정해줘야 함. -->

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="EUC-KR"%>
 
 <html>
@@ -132,6 +132,10 @@ $( function() {
 		      <input type="number" class="form-control" id="price" name="price" placeholder="가격">
 		      <div class="input-group-addon">원</div>
 	    	</div>
+		  </div>
+		  <div class="form-group">
+		  	<label for="inventory">수량</label>
+		  	<input type="number" class="form-control" name="inventory" id="inventory" placeholder="초기 수량을 입력해주세요">
 		  </div>
 		  <div class="form-group">
 		    <label for="thumbnail">상품 이미지</label>

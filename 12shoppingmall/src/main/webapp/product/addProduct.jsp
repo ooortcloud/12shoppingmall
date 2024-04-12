@@ -87,6 +87,11 @@
 		</tr>
 		<tr>
 		<tr>
+			<th scope="row">초기 수량</th>
+			<td>${product.inventory }</td>
+		</tr>
+		<tr>
+		<tr>
 			<th scope="row">상품이미지</th>
 			<td>
 				<img src="/images/uploadFiles/${product.fileName }" style="max-width : 400px; max-height : 300px;" align="absmiddle" />

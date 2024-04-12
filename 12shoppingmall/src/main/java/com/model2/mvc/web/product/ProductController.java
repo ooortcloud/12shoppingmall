@@ -93,7 +93,9 @@ public class ProductController {
 	public String addProduct(@ModelAttribute Product product, @RequestParam(required = false) MultipartFile thumbnail , Model model, HttpServletRequest request) throws Exception {
 
 		// real path를 가져온다.
-		String imagePath = request.getServletContext().getRealPath("/images/uploadFiles");
+		// Spring boot 변경 후 static에 접근하기 위해서는 webapp에서 벗어나야 한다.  << 개발 server에서만 유효할 수 있으니 주의
+		String imagePath = request.getServletContext().getRealPath("/");
+		imagePath = imagePath + "../resources/static/images/uploadFiles";
 		System.out.println("path :: " + imagePath);
 		
 		/// 사용자가 image를 넣지 않는 경우,  예외 file로 대체

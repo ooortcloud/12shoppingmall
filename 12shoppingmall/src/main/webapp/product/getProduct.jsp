@@ -104,6 +104,7 @@ console.log("document.referrer = " + document.referrer);
 			<tr>
 				<th scope="row">상품이미지</th>
 				<td>
+					<!-- 경로 설정 기준이 무엇인지 모르겠다. -->
 					<img src="/images/uploadFiles/${product.fileName }" style="max-width : 400px; max-height : 300px;" align="absmiddle" />
 				</td>
 			</tr>

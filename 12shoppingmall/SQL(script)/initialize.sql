@@ -33,7 +33,7 @@ CREATE TABLE product (
 	price 							NUMBER(10),
 	image_file 					VARCHAR2(100),
 	reg_date 					DATE,
-	inventory	NUMBER(5)	NOT NULL,
+	inventory	NUMBER(5)	DEFAULT 0,
 	PRIMARY KEY(prod_no)
 );
 

@@ -32,6 +32,7 @@
 			if(product.fileName == null || product.fileName =='null') {
 				temp += '<img class="my-thumbnail" src="http://placeholder.com/243X200" />';
 			} else {
+				//  Spring boot 이사 후 경로 변경
 				temp += '<img class="my-thumbnail" src="/images/uploadFiles/'+product.fileName+'" />';	
 			}
 			
