@@ -67,7 +67,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public Map<String, Object> getPurchaseList(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
-		return allDao.getPurchaseDao().getPurchaseList(map);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("list", allDao.getPurchaseDao().getPurchaseList(map));
+		result.put("totalCount", allDao.getPurchaseDao().getTotalCount( String.valueOf(map.get("buyerId")) ));
+		return result;
 	}
 
 	@Override

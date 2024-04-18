@@ -17,11 +17,12 @@ public interface PurchaseDao {
 	
 	public Purchase findPurchase(int tranNo) throws Exception;
 	
-	public Map<String, Object> getPurchaseList(Map<String ,Object> map) throws Exception;
+	// public Map<String, Object> getPurchaseList(Map<String ,Object> map) throws Exception;
+	public List<Purchase> getPurchaseList(Map<String ,Object> map) throws Exception;
 
 	public int updateTranCode(Purchase purchase) throws SQLException;
 	
 	public int updatePurchase(Purchase purchase) throws Exception;
 	
-	public User getUser(String userId) throws Exception;
+	public int getTotalCount(String buyerId) throws Exception;
 }
