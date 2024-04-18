@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -189,5 +190,26 @@ public class ProductRestController {
 		} else {
 			return new Message("image file을 찾지 못했습니다...");
 		}
+	}
+	
+	/*
+	 * produces :: server의 Content-Type 설정
+	 * consumes :: server의 Accept 설정
+	 */
+	@PostMapping(path = "/checkInventory", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
+	// @RequestBody를 사용하여 text/plain 값을 받으려면 반드시 'String'으로 받아야 함.
+	public String checkInventory(@RequestBody String prodNo) throws Exception {
+		
+		System.out.println(prodNo);
+		Integer result = service.getProduct(Integer.parseInt(prodNo)).getInventory();
+		
+		// 재고 없으면 요청 거절
+		if(result <= 0)
+			return "0";
+		else {
+			System.out.println("flag");
+			return String.valueOf(result);
+		}
+			
 	}
 }

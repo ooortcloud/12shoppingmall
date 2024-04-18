@@ -46,7 +46,7 @@
 
 <script type="text/javascript">
 
-	function check() {
+	function fncAddPurchase() {
 		let divyDate = document.querySelector('input[name="divyDate"]').value;
 		if(divyDate === '') {
 			alert("배송 희망 일자는 필수 입력 사항입니다.");
@@ -58,15 +58,55 @@
 			alert('반드시 "-"와 함께 입력해주세요.');
 			return false;
 		}
+		
+		// 비동기 처리를 해줘야 함
+		const numberOfPurchase = $('input[name="numberOfPurchase"]').val();
+		if(numberOfPurchase <= 0) {
+			alert("재고는 1 이상의 자연수여야 합니다.");
+			return;
+		}
+		
+		return new Promise( function(resolve, reject) {
 			
-		return true;
+			
+			// 빈 문자열은 false 취급
+			if (numberOfPurchase !== undefined && numberOfPurchase  ) {
+				
+				// 구매 overflow 방지
+				$.ajax({
+					
+					url : "/rest/product/checkInventory",
+					method : "Post",
+					headers : {
+						"Accept" : "text/plain",
+						"Content-Type" : "text/plain"
+					},
+					dataType : "text",
+					data : "${purchase.purchaseProd.prodNo }"
+				}).then( function(data) { 
+	
+					console.log(parseInt(data) < numberOfPurchase);
+					if(parseInt(data) < numberOfPurchase) {
+						alert("구매 수량이 현재 재고보다 많습니다. 현재 재고 = " +data );
+						reject(new Error());  // Promise chain 부수고 끝내버림
+					} else {
+						document.addPurchase.submit();	
+					}
+				});
+			} else {  
+				alert("구매 수량을 입력해주세요.");
+				return false;
+			}
+		});
 	}
 	
 	
+	/*
 	function fncAddPurchase() {
 		if (check() === true)
 			document.addPurchase.submit();
 	}
+	*/
 
 	
 	$( function() {  
@@ -182,6 +222,11 @@
 							style="width: 100px; height: 19px" maxLength="20"/>
 			<img 	src="../images/ct_icon_date.gif" width="15" height="15"	
 						onclick="show_calendar('document.addPurchase.divyDate', document.addPurchase.divyDate.value)"/>
+		</div>
+		
+		<div class='form-group'>
+			<label for='numberOfPurchase'>구매 수량</label>
+			<input class='form-control' type='number' name='numberOfPurchase' placeholder='구매할 수량을 입력해주세요.'>
 		</div>
 	</form>
 </div>  <!-- container end -->

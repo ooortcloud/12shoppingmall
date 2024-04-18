@@ -25,10 +25,10 @@ import com.model2.mvc.service.purchase.PurchaseService;
 @Transactional  // transaction metadata 추가
 public class PurchaseServiceImpl implements PurchaseService {
 
+	// spring boot로 오면서 Mapper 간 code 공유가 안됨... => design pattern 적용 (이름 기억 안남)
 	@Autowired
-	// @Qualifier("purchaseDaoImpl")
-	@Qualifier("purchaseDao")  // @Mapper interface의 구현체를 받자.
-	private PurchaseDao purchaseDao;
+	// private PurchaseDao purchaseDao;
+	private AllDao allDao;
 	
 	public PurchaseServiceImpl() {
 		// TODO Auto-generated constructor stub
@@ -41,41 +41,53 @@ public class PurchaseServiceImpl implements PurchaseService {
 	*/
 
 	@Override
-	public int addPurchase(Purchase pruchase) throws Exception {
+	public int addPurchase(Purchase purchase) throws Exception {
 		// TODO Auto-generated method stub
-		return purchaseDao.insertPurchase(pruchase);
+
+		// 구매한 수량만큼 차감해야 함
+		Product product = purchase.getPurchaseProd();		
+		int remainQuantity = product.getInventory() - purchase.getNumberOfPurchase();
+		product.setInventory(remainQuantity);
+		purchase.setPurchaseProd(product);
+		
+		// 정상적으로 수량이 변경된 경우에만 구매 list에 추가
+		if( allDao.getProductDao().decreaseInventory(product) == 1 ) {
+			return allDao.getPurchaseDao().insertPurchase(purchase);
+		} else {
+			return 0;
+		}
 	}
 
 	@Override
 	public Purchase getPurchase(int tranNo) throws SQLException, Exception {
 		// TODO Auto-generated method stub
-		return purchaseDao.findPurchase(tranNo);
+		return allDao.getPurchaseDao().findPurchase(tranNo);
 	}
 
 	@Override
 	public Map<String, Object> getPurchaseList(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
-		return purchaseDao.getPurchaseList(map);
+		return allDao.getPurchaseDao().getPurchaseList(map);
 	}
 
 	@Override
 	public int updateTranCode(Purchase purchase) throws SQLException {
 		// TODO Auto-generated method stub
-		return purchaseDao.updateTranCode(purchase);
+		return allDao.getPurchaseDao().updateTranCode(purchase);
 	}
 	
 	@Override
 	public int updatePurchase(Purchase purchase) throws Exception {
-		return purchaseDao.updatePurchase(purchase);
+		return allDao.getPurchaseDao().updatePurchase(purchase);
 	}
 
 	@Override
-	public Product getProduct(int prodNo) throws SQLException {
-		return purchaseDao.getProduct(prodNo);
+	public Product getProduct(int prodNo) throws Exception {
+		return allDao.getProductDao().findProduct(prodNo);
 	}
 	
 	@Override
 	public User getUser(String userId) throws Exception {
-		return purchaseDao.getUser(userId);
+		return allDao.getUserDao().getUser(userId);
 	}
 }

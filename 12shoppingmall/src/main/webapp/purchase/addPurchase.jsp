@@ -103,6 +103,10 @@
 		<th scope='row'>배송희망일자</th>
 		<td>${purchase.divyDate }</td>
 	</tr>
+	<tr>
+		<th scope='row'>구매 수량</th>
+		<td>${purchase.numberOfPurchase }</td>
+	</tr>
 	</tbody>
 </table>
 

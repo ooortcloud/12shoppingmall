@@ -1,4 +1,4 @@
-package com.model2.mvc.service.dto;
+package com.model2.mvc.service.dto.product;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -23,7 +23,5 @@ public interface PurchaseDao {
 	
 	public int updatePurchase(Purchase purchase) throws Exception;
 	
-	public Product getProduct(int prodNo) throws SQLException;
-	
 	public User getUser(String userId) throws Exception;
 }

@@ -21,7 +21,7 @@ public interface PurchaseService {
 	
 	public int updatePurchase(Purchase purchase) throws Exception;
 	
-	public Product getProduct(int prodNo) throws SQLException;
+	public Product getProduct(int prodNo) throws Exception;
 	
 	public User getUser(String userId) throws Exception;
 }

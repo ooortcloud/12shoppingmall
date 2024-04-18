@@ -41,9 +41,35 @@
 
 	$( function() {
 		
+		const prodNo = ${requestScope.product.prodNo };
+		console.log(prodNo);
 		$('button:contains("구매")').on('click', function() {
 			// $(window.parent.frames["rightFrame"].document.location).attr('href', '/purchase/addPurchase?prodNo=${product.prodNo}');  // JSP는 적용 가능. 하지만 JSTL은 적용 불가...
-			window.location.href = "/purchase/addPurchase?prodNo=${product.prodNo}";
+			
+			// 보안을 위해 DB에서 직접 재고 개수 확인하자. (view 값을 긁어오는 것은 취약함)
+			// 어차피 정적인 data를 전달할 것이므로 JSTL 사용 해도 문제없다.
+			
+			$.ajax({
+				
+				url : "/rest/product/checkInventory",
+				method : "POST",	
+				headers : {
+					"Accept" : "text/plain",
+					"Content-Type" : "text/plain"
+				},
+				dataType : "text",
+				data : "${requestScope.product.prodNo }",
+				success : function(data) {
+					
+					if( data == "0") {
+						alert("현재 판매 가능한 상품이 없어서 구매가 불가능합니다...");
+						return ;
+					}
+					else
+						// 여기도 보안취약하니까 여기서도 DB 조회 작업해야 할듯.
+						window.location.href = "/purchase/addPurchase?prodNo=${product.prodNo}";
+				}
+			});
 		}).on('mouseover', function() {
 			$(this).css('cursor', 'pointer');
 		}).on('mouseout', function() {
@@ -104,7 +130,10 @@ console.log("document.referrer = " + document.referrer);
 			<tr>
 				<th scope="row">상품이미지</th>
 				<td>
-					<!-- 경로 설정 기준이 무엇인지 모르겠다. -->
+					<%--
+						이유는 모르겠으나, Spring boot 변경 후 folder 구조가 바뀌었는데도 기존 경로로도 유효하게 작동함.
+						Spring boot가 동적으로 처리하는 것으로 추측됨. (변경 직후 최초에는 적용이 안됐거든.)
+					 --%>
 					<img src="/images/uploadFiles/${product.fileName }" style="max-width : 400px; max-height : 300px;" align="absmiddle" />
 				</td>
 			</tr>
@@ -123,6 +152,10 @@ console.log("document.referrer = " + document.referrer);
 			<tr>
 				<th scope="row">등록일자</th>
 				<td> ${product.regDate }</td>
+			</tr>
+			<tr>
+				<th scope="row">재고</th>
+				<td id="remains"> ${product.inventory }</td>
 			</tr>
 		</tbody>
 	</table>

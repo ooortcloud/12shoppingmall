@@ -58,6 +58,8 @@ public class PurchaseController {
 	@PostMapping("/addPurchase")
 	public ModelAndView addPurchase(@ModelAttribute Purchase purchase, @RequestParam Integer prodNo, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView("forward:/purchase/addPurchase.jsp");
+
+		System.out.println(purchase);
 		purchase.setPurchaseProd( service.getProduct(prodNo) );
 		purchase.setBuyer( service.getUser(( (User)session.getAttribute("user") ).getUserId()) );
 		purchase.setTranCode("1");  // '구매완료' 상태코드

@@ -17,7 +17,7 @@
 		<result property="fileName" column="image_file" jdbcType="VARCHAR" />
 		<result property="regDate" column="reg_date" jdbcType="DATE" />
 		<!-- jdbcType을 NUMBER로 하면 error 난다... -->
-		<result property="inventory" column="inventory" jdbcType="INTEGER" />
+		<result property="inventory" column="inventory" jdbcType="NUMERIC" />
 		
 		<!-- Join table의 결과값이더라도 미리 매핑이 가능함! -->
 		<result property="proTranCode" column="tran_status_code" jdbcType="VARCHAR" />
@@ -102,6 +102,12 @@
 			<if test="fileName != null">image_file=#{fileName}, </if>
 			prod_name=#{prodName}
 		</set>
+		WHERE prod_no=#{prodNo}
+	</update>
+	
+	<update id="decreaseInventory" parameterType="product">
+		UPDATE product
+		SET inventory=#{inventory}
 		WHERE prod_no=#{prodNo}
 	</update>
 	

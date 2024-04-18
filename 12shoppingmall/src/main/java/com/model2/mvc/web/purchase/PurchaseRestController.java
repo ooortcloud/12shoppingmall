@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
-import com.model2.mvc.service.dto.UpdateTranCodeByProdDto;
-import com.model2.mvc.service.dto.UpdateTranCodeDto;
+import com.model2.mvc.service.dto.product.UpdateTranCodeByProdDto;
+import com.model2.mvc.service.dto.product.UpdateTranCodeDto;
 import com.model2.mvc.service.purchase.PurchaseService;
 
 @RestController

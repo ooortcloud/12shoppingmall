@@ -20,6 +20,8 @@ public interface ProductDao {
 	
 	public int updateProduct(Product product) throws Exception;
 	
+	public int decreaseInventory(Product product) throws Exception;
+	
 	public int getTotalCount(Search search) throws Exception ;
 	
 	public int deleteProduct(Integer prodNo) throws Exception;	

@@ -49,6 +49,7 @@ CREATE TABLE transaction (
 	tran_status_code	VARCHAR2(3),
 	order_data 			DATE,
 	dlvy_date 				DATE,
+	number_of_purchase	NUMBER(5)	NOT NULL,
 	PRIMARY KEY(tran_no)
 );
 

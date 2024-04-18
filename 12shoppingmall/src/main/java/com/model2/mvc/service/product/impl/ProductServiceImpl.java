@@ -24,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	// @Qualifier("productDaoImpl")
-	@Qualifier("productDao")  // @Mapper interface의 구현체를 받자.
+	// @Qualifier("productDao")  // @Mapper interface의 구현체를 받자.
 	private ProductDao productDao;
 	
 	/*

@@ -78,11 +78,6 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	}
 	
 	@Override
-	public Product getProduct(int prodNo) throws SQLException {
-		return sqlSession.selectOne("ProductMapper.findProduct", prodNo);
-	}
-	
-	@Override
 	public User getUser(String userId) throws Exception {
 		return sqlSession.selectOne("UserMapper.getUser", userId);
 	}

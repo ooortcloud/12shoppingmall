@@ -6,7 +6,9 @@
 		
 <!-- Spring boot에서는 직접 sqlSessionTemplate 객체 사용 안하므로, FQCN으로 명시해줘야 함. -->
 <!-- <mapper namespace="PurchaseMapper">  -->
+<!-- @Mapper 사용 시 namespace는 반드시 해당 interface의 FQCN이어야 한다. -->
 <mapper namespace="com.model2.mvc.service.purchase.PurchaseDao">
+
 	
 	<resultMap id="purchaseSelectMap" type="com.model2.mvc.service.domain.Purchase">
 		<result property="tranNo" column="tran_no" jdbcType="NUMERIC" />
@@ -18,6 +20,7 @@
 		<result property="tranCode" column="tran_status_code" jdbcType="VARCHAR" />
 		<result property="orderDate" column="order_data" jdbcType="DATE" />
 		<result property="divyDate" column="dlvy_date" jdbcType="DATE" />
+		<result property="numberOfPurchase" column="number_of_purchase" jdbcType="NUMERIC" />
 		
 		<!-- domain 간 has a 관계에 대한 해결책으로, Mybatis에서는 association 태그를 지원. -->
 		<!-- select 속성에 외부 Mapper 명시 안 해주면 default로 자기 자신의 Mapper 내에서만 찾음... -->
@@ -30,11 +33,11 @@
 		 -->
 	</resultMap>
 	   
-	<insert id="addPurchase" parameterType="purchase">
+	<insert id="insertPurchase" parameterType="purchase">
 		INSERT INTO
-		transaction (tran_no, prod_no, buyer_id, payment_option, receiver_name, receiver_phone, demailaddr, dlvy_request, tran_status_code, order_data, dlvy_date)
+		transaction (tran_no, prod_no, buyer_id, payment_option, receiver_name, receiver_phone, demailaddr, dlvy_request, tran_status_code, order_data, dlvy_date, number_of_purchase)
 		<!-- Oracle에서 제공하는 시퀸스 기능을 잊지 말자. -->
-		VALUES (seq_transaction_tran_no.nextval, #{purchaseProd.prodNo}, #{buyer.userId}, #{paymentOption:VARCHAR}, #{receiverName, jdbcType=VARCHAR}, #{receiverPhone:VARCHAR}, #{divyAddr:VARCHAR}, #{divyRequest:VARCHAR}, #{tranCode:VARCHAR}, SYSDATE, #{divyDate:DATE})
+		VALUES (seq_transaction_tran_no.nextval, #{purchaseProd.prodNo}, #{buyer.userId}, #{paymentOption:VARCHAR}, #{receiverName, jdbcType=VARCHAR}, #{receiverPhone:VARCHAR}, #{divyAddr:VARCHAR}, #{divyRequest:VARCHAR}, #{tranCode:VARCHAR}, SYSDATE, #{divyDate:DATE}, #{numberOfPurchase:NUMERIC})
 	</insert>
 	
 	<select id="findPurchase" parameterType="integer" resultMap="purchaseSelectMap">
@@ -68,6 +71,7 @@
 					FROM transaction
 					WHERE buyer_id=#{value} ) origin
 	</select>
+
 	
 	<update id="updatePurchase" parameterType="purchase">
 		UPDATE transaction
