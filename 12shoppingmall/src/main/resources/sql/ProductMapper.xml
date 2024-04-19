@@ -100,6 +100,7 @@
 			<if test="manuDate != null">manufacture_day=#{manuDate}, </if>
 			<if test="price != null">price=#{price}, </if>
 			<if test="fileName != null">image_file=#{fileName}, </if>
+			inventory = #{inventory},
 			prod_name=#{prodName}
 		</set>
 		WHERE prod_no=#{prodNo}

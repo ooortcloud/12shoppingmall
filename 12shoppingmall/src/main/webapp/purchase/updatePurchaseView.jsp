@@ -141,6 +141,11 @@
 			<input class='form-control' type='text' name='divyRequest' placeholder='구매 요청사항을 입력해주세요.'  value="${purchase.divyRequest }">
 		</div>
 		
+	  <div class="form-group">
+	  	<label for="numberOfPurchase">수량</label>
+	  	<input type="number" class="form-control" name="numberOfPurchase" id="numberOfPurchase" placeholder="수정할 수량을 입력해주세요" value = "${purchase.numberOfPurchase }">
+	  </div>
+		
 		<div class='form-group'>
 			<label for='divyDate'>배송희망일자</label>
 			<input 	type="text" readonly="readonly" name="divyDate" class="ct_input_g" 

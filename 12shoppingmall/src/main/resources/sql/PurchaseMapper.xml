@@ -105,6 +105,7 @@
 			<if test="divyAddr != null">demailaddr = #{divyAddr}, </if>
 			<if test="divyRequest != null">dlvy_request = #{divyRequest}, </if>
 			<if test="divyDate != null">dlvy_date = #{divyDate}, </if>
+			number_of_purchase = #{numberOfPurchase},
 			payment_option = #{paymentOption}
 		</set>
 		WHERE tran_no = #{tranNo}
