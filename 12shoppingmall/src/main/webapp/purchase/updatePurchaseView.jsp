@@ -23,13 +23,8 @@
    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
     <!-- Bootstrap Dropdown Hover JS -->
    <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-   
-   
-   <!-- jQuery UI toolTip 사용 CSS-->
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <!-- jQuery UI toolTip 사용 JS-->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	
+
+  
 	<!--  CSS 추가 : 툴바에 화면 가리는 현상 해결 :  주석처리 전, 후 확인-->
 	<style>
         body {
@@ -40,7 +35,9 @@
  
 <title>구매정보 수정</title>
 
+<!-- 
 <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+ -->
 <script type="text/javascript">
 
 	function checkNull() {
@@ -81,7 +78,38 @@
 	});
 </script>
 
-<script type="text/javascript" src="../javascript/calendar.js"></script>
+  <!-- jQuery UI calendar -->
+  <!-- 주의 :: 중복되는 script를 추가하면 not a function 오류가 발생한다. -->
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+		<script>
+		   $(function() {
+		       //input을 datepicker로 선언
+		       $("#divyDate").datepicker({
+		           dateFormat: 'yy-mm-dd' //달력 날짜 형태
+		           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+		           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+		           ,changeYear: true //option값 년 선택 가능
+		           ,changeMonth: true //option값  월 선택 가능                
+		           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+		           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+		           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
+		           ,buttonText: "선택" //버튼 호버 텍스트              
+		           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+		           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+		           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+		           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+		           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+		           ,minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+		           ,maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)  
+		       });                    
+		       
+		       //초기값을 오늘 날짜로 설정해줘야 합니다.
+		       $('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
+		   });
+		</script>
 
 </head>
 
@@ -145,14 +173,13 @@
 	  	<label for="numberOfPurchase">수량</label>
 	  	<input type="number" class="form-control" name="numberOfPurchase" id="numberOfPurchase" placeholder="수정할 수량을 입력해주세요" value = "${purchase.numberOfPurchase }">
 	  </div>
-		
-		<div class='form-group'>
-			<label for='divyDate'>배송희망일자</label>
-			<input 	type="text" readonly="readonly" name="divyDate" class="ct_input_g" 
-							style="width: 100px; height: 19px" maxLength="20"/>
-			<img 	src="../images/ct_icon_date.gif" width="15" height="15"	
-						onclick="show_calendar('document.updatePurchase.divyDate', document.updatePurchase.divyDate.value)"/>
-		</div>
+
+		 <div class='form-group'>
+		 	<label for='divyDate'>배송희망일자</label>
+		 	<input name='divyDate' id="divyDate" type="text" value="${purchase.divyDate	 }">
+		 </div>
+		 
+		 
 	</form>
 	
 	<div class="row">

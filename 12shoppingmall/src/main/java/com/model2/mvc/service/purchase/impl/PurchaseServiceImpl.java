@@ -82,10 +82,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public int updatePurchase(Purchase purchase) throws Exception {
 		
-		Product product = allDao.getProductDao().findProduct(purchase.getPurchaseProd().getProdNo());
 		// 구매 수량 수정사항 반영
-		int changed = ;
-		product.setInventory( product.getInventory() + changed );
+		int beforeNumberOfPurchase = allDao.getPurchaseDao().findPurchase(purchase.getTranNo()).getNumberOfPurchase(); 
+		int afterNumberOfPurchase = purchase.getNumberOfPurchase();
+		int changed = afterNumberOfPurchase - beforeNumberOfPurchase;
+		Product product = allDao.getProductDao().findProduct(purchase.getPurchaseProd().getProdNo());
+		product.setInventory( product.getInventory() - changed );
+		
 		if(allDao.getProductDao().updateProduct(product) != 1) {
 			return -1;
 		} else {

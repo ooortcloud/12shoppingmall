@@ -128,6 +128,10 @@
 				<th scope='row'>주문일</th>
 				<td>${purchase.orderDate }</td>
 			</tr>
+			<tr>
+				<th scope='row'>구매수량</th>
+				<td>${purchase.numberOfPurchase }</td>
+			</tr>
 		</tbody>
 	</table>
 	

@@ -17,12 +17,13 @@ public interface PurchaseDao {
 	
 	public Purchase findPurchase(int tranNo) throws Exception;
 	
-	// public Map<String, Object> getPurchaseList(Map<String ,Object> map) throws Exception;
+	// DAO에서는 단건 처리 기반으로 작성해야 나중에 조립할 때 유연성이 좋다. 통합은 service layer에서 진행하는 것이 좋음.
+	// 하지만 무엇보다도 @Mapper에서는 return type 기반으로 proxy 객체를 generate하기 떄문에, 단건 조회로 진행해야 처리하기 편리함.
 	public List<Purchase> getPurchaseList(Map<String ,Object> map) throws Exception;
+	
+	public int getTotalCount(String buyerId) throws Exception;
 
 	public int updateTranCode(Purchase purchase) throws SQLException;
 	
 	public int updatePurchase(Purchase purchase) throws Exception;
-	
-	public int getTotalCount(String buyerId) throws Exception;
 }

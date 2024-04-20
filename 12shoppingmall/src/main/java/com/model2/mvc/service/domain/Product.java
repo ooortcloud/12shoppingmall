@@ -2,7 +2,6 @@ package com.model2.mvc.service.domain;
 
 import java.sql.Date;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,11 +18,8 @@ public class Product {
 	private String prodName;
 	private Integer prodNo;
 	private Date regDate;
-	private Integer inventory;
+	private Integer inventory; 
 	
-	private String proTranCode;  // 현재 상태
+	private String proTranCode;  // transaction table의 join 값
 
-	public Product() {
-		
-	}
 }

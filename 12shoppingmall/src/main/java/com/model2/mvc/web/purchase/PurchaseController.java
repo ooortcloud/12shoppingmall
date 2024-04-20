@@ -111,7 +111,9 @@ public class PurchaseController {
 	@GetMapping("/updatePurchase")
 	public ModelAndView updatePurchase(@RequestParam Integer tranNo) throws SQLException, Exception {
 		ModelAndView mv = new ModelAndView("forward:/purchase/updatePurchaseView.jsp");
-		mv.addObject("purchase", service.getPurchase(tranNo) );
+		Purchase purchase = service.getPurchase(tranNo);
+		purchase.setDivyDate(purchase.getDivyDate().split(" ")[0]);
+		mv.addObject("purchase", purchase );
 		
 		return mv;
 	}

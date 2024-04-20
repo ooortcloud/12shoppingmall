@@ -57,13 +57,15 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		return purchase;
 	}
    
+	
 	@Override // Search, User
-	public Map<String, Object> getPurchaseList(Map<String, Object> map) throws Exception {
+	public List<Purchase> getPurchaseList(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
-		Map<String, Object> resultMap = new HashMap<>();
-		resultMap.put("list", sqlSession.selectList("PurchaseMapper.getPurchaseList", map) );
-		resultMap.put("totalCount", sqlSession.selectOne("PurchaseMapper.getTotalCount", map.get("buyerId")) );
-		return resultMap;
+		return sqlSession.selectList("PurchaseMapper.getPurchaseList", map);
+	}
+	
+	public int getTotalCount(String buyerId) throws Exception {
+		return sqlSession.selectOne("PurchaseMapper.getTotalCount", buyerId);
 	}
 
 	@Override
@@ -76,11 +78,4 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	public int updatePurchase(Purchase purchase) throws Exception {
 		return sqlSession.update("PurchaseMapper.updatePurchase", purchase);
 	}
-	
-	@Override
-	public User getUser(String userId) throws Exception {
-		return sqlSession.selectOne("UserMapper.getUser", userId);
-	}
-	
-
 }

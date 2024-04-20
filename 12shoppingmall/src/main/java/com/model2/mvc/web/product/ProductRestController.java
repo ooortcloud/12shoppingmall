@@ -173,6 +173,15 @@ public class ProductRestController {
 	public Message deleteProduct(@RequestBody Product product, HttpServletRequest request) throws Exception{
 		
 		System.out.println("path :: " + request.getServletContext().getRealPath("/images/uploadFiles") + "\\" + product.getFileName());
+		
+		if(product.getFileName().isEmpty()) {
+			int result = service.deleteProduct( product.getProdNo());
+			if(result != 1) 
+				return new Message("상품 삭제에 실패... :: DB error");
+			else
+	 			return new Message("ok");
+		}
+		
 		File oldFile = new File( request.getServletContext().getRealPath("/images/uploadFiles") + "\\" + product.getFileName() );
 		if (oldFile.exists()) {
 			System.out.println("image file을 찾았습니다.");

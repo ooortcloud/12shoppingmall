@@ -74,4 +74,10 @@ public class ProductDaoImpl implements ProductDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("ProductMapper.getProductListAutoComplete", prodName);
 	}
+
+	@Override
+	public int decreaseInventory(Product product) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

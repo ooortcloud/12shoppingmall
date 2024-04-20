@@ -98,11 +98,11 @@ public class ProductController {
 		imagePath = imagePath + "../resources/static/images/uploadFiles";
 		System.out.println("path :: " + imagePath);
 		
-		/// 사용자가 image를 넣지 않는 경우,  예외 file로 대체
+		/// 사용자가 image를 넣지 않는 경우,  예외 file로 대체하여 저장
 		if(thumbnail.isEmpty())  {
-			product.setFileName(imagePath+"/../empty.GIF");
+			product.setFileName(null);
 		} 
-		/// image가 존재하는 경우 server folder 내 저장, DB에는 fileName 저장
+		/// image가 존재하는 경우
 		else {			
 			/// thumbnail 크기 제한
 			if(thumbnail.getSize() > unitKB * unitKB * 10)
@@ -121,14 +121,17 @@ public class ProductController {
 				product.setFileName( fileName );
 				thumbnail.transferTo(file);  // 해당 경로에 img를 transfer(?)
 	
-				if(file.exists()) {
-					StringTokenizer temp = new StringTokenizer( product.getManuDate(), "-" );  // delim 넣어줘야 split해줌
-					product.setManuDate( temp.nextToken() + temp.nextToken() + temp.nextToken() );
-					service.addProduct(product);  // id는 sequence에 의해 auto increment
-					model.addAttribute("product", product);  // setter...
+				if( !file.exists()) {
+					System.out.println("img file이 저장되지 않았습니다...");
+					return null;
 				}
 			}
 		}
+		
+		StringTokenizer temp = new StringTokenizer( product.getManuDate(), "-" );  // delim 넣어줘야 split해줌
+		product.setManuDate( temp.nextToken() + temp.nextToken() + temp.nextToken() );		
+		service.addProduct(product);  // id는 sequence에 의해 auto increment
+		model.addAttribute("product", product);  // setter...
 		
 		return "forward:/product/addProduct.jsp";
 	}

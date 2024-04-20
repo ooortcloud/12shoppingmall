@@ -123,6 +123,7 @@
 			<th>No</th>
 			<th>상품ID</th>
 			<th>상품명</th>
+			<th>구매수량</th>
 			<th>구매일자</th>
 			<th>배송현황</th>
 			<th>정보수정</th>
@@ -133,6 +134,7 @@
 				<th scope='row'>${num }</th>
 				<td><a href="/product/getProduct/search?prodNo=${purchase.purchaseProd.prodNo }">${purchase.purchaseProd.prodNo }</a></td>
 				<td>${purchase.purchaseProd.prodName }</td>
+				<td>${purchase.numberOfPurchase }</td>
 				<td>${purchase.orderDate }</td>
 				<%-- tran_state_code : "1" = "구매완료", "2" = "배송중", "3" = "배송완료" --%>
 				<td id="${purchase.tranNo }">
