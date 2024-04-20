@@ -91,6 +91,15 @@
 		}).on('mouseout', function() {
 			$(this).css('cursor', 'default');
 		});
+		
+		$('button:containes("장바구니")').on('click', function() {
+			
+			// REST 통신으로 장바구니 list에 추가
+		}).on('mouseover', function() {
+			$(this).css('cursor', 'pointer');
+		}).on('mouseout', function() {
+			$(this).css('cursor', 'default');
+		});
 	});
 
 </script>
@@ -161,7 +170,8 @@ console.log("document.referrer = " + document.referrer);
 	</table>
 	
 	<div class="row">
-		<button type="button" class="btn btn-default col-sm-offset-10">구매</button>
+		<button type="button" class="btn btn-default col-sm-offset-9">구매</button>
+		<button type="button" class="btn btn-default">장바구니에 담기</button>
 		<button type="button" class="btn btn-default">이전</button>
 	</div>
 </div> <!-- container end -->

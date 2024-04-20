@@ -195,4 +195,11 @@ public class PurchaseController {
 		
 		return mv;
 	}
+	
+	@GetMapping("/shoppingCart")
+	public ModelAndView shoppingCart() throws Exception {
+		
+		
+	}
+	
 }

@@ -11,6 +11,8 @@
 	<div class="container-fluid">
 	       
 		<a class="navbar-brand" href="/">Model2 MVC Shop</a>
+
+		<p class="navbar-text">${sessionScope.user.userName }</p>
 		
 		<!-- toolBar Button Start //////////////////////// -->
 		<div class="navbar-header">
@@ -76,6 +78,7 @@
 	                         
 	                         <c:if test="${sessionScope.user.role == 'user'}">
 	                           <li><a href="/purchase/listPurchase">구매이력조회</a></li>
+	                           <li><a href="/purchase/shoppingCart">장바구니</a></li>
 	                         </c:if>
 	                         
 	                         <li><a id="history">최근본상품</a></li>
@@ -92,13 +95,13 @@
 	                  -->
 	             </ul>
 	             
+	                   
 	             <ul class="nav navbar-nav navbar-right">
 	                <li><a href="#">로그아웃</a></li>
 	            </ul>
-		</div>
-		<!-- dropdown hover END -->	       
+		</div> <!-- dropdown hover END -->	       
 	    
-	</div>
+	</div> <!-- container end -->
 </nav>
 		<!-- ToolBar End /////////////////////////////////////-->
  	
