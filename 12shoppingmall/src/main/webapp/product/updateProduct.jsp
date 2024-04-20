@@ -96,6 +96,10 @@
 			<th scope="row">등록일자</th>
 			<td> ${product.regDate }</td>
 		</tr>
+		<tr>
+			<th scope="row">재고</th>
+			<td> ${product.inventory }</td>
+		</tr>
 	</tbody>
 </table>
 

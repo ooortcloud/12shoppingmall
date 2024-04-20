@@ -174,6 +174,11 @@ function fncUpdateProduct(){
 			    <p class="help-block">최대 10MB 이하만 가능합니다...</p>
 			  </div>
 	
+			  <div class="form-group">
+			    <label for="inventory">재고 수량</label>
+			    <input type="number" class="form-control" id="inventory" name="inventory" placeholder="현재 남아 있는 재고 개수를 입력해주세요." value="${product.inventory }">
+			  </div>
+	
 		<div class="row">
 			<div class="col-sm-offset-10">
 				<button type="button" class="btn btn-default">수정</button>
