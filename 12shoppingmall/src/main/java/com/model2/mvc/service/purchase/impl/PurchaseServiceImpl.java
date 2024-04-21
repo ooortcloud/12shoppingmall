@@ -14,6 +14,7 @@ import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.domain.ShoppingCartItem;
 import com.model2.mvc.service.domain.User;
+import com.model2.mvc.service.dto.purchase.ShoppingCartItemDto;
 import com.model2.mvc.service.purchase.PurchaseDao;
 import com.model2.mvc.service.purchase.PurchaseService;
 
@@ -108,7 +109,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 	
 	@Override
-	public List<ShoppingCartItem> getShoppingCartList(String userId) throws Exception {
-		return allDao.getPurchaseDao().getShoppingCartList(userId);
+	public List<ShoppingCartItemDto> getShoppingCartList(String userId) throws Exception {
+		return allDao.getShoppingCartDao().getShoppingCartList(userId);
 	}
 }

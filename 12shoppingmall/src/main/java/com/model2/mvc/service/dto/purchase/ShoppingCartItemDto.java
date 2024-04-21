@@ -1,4 +1,4 @@
-package com.model2.mvc.service.domain;
+package com.model2.mvc.service.dto.purchase;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -9,13 +9,10 @@ import lombok.ToString;
 @Setter
 @Builder
 @ToString
-public class ShoppingCartItem {
+public class ShoppingCartItemDto {
 
 	private Integer cartNo;
-	private String userId;
 	private Integer prodNo;
-	
+	private String userId;
 	private String prodName;
-	private boolean selected;  // true :: 구매 대상
-	private Integer numberOfPurchase;
 }

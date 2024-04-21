@@ -13,17 +13,24 @@ import org.springframework.web.bind.annotation.RestController;
 import com.model2.mvc.common.Message;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
+import com.model2.mvc.service.domain.ShoppingCartItem;
 import com.model2.mvc.service.dto.product.UpdateTranCodeByProdDto;
 import com.model2.mvc.service.dto.product.UpdateTranCodeDto;
 import com.model2.mvc.service.purchase.PurchaseService;
+import com.model2.mvc.service.purchase.impl.AllDao;
 
 @RestController
 @RequestMapping("/rest/purchase")
 public class PurchaseRestController {
 
+	/*
 	@Autowired
 	@Qualifier("purchaseServiceImpl")
 	private PurchaseService service;
+	*/
+	
+	@Autowired
+	private AllDao allDao;
 
 	@Value("${common.pageSize}")
 	int pageSize;
@@ -50,7 +57,7 @@ public class PurchaseRestController {
 		
 		purchase.setTranCode(dto.getTranCode());
 		purchase.setPurchaseProd(product);
-		int result = service.updateTranCode(purchase);
+		int result = allDao.getPurchaseDao().updateTranCode(purchase);
 		
 		if (result == 1)
 			return true;
@@ -71,7 +78,7 @@ public class PurchaseRestController {
 		purchase.setTranNo(dto.getTranNo());
 		purchase.setTranCode("3");
 		
-		int result = service.updateTranCode(purchase);
+		int result = allDao.getPurchaseDao().updateTranCode(purchase);
 		
 		if(result == 1)
 			return true;
@@ -84,10 +91,19 @@ public class PurchaseRestController {
 	//==================================================================================
 	
 	@PostMapping("/addShoppingCart")
-	public Message addShoppingCart(@RequestBody Message msg) throws Exception {
+	public Message addShoppingCart(@RequestBody ShoppingCartItem item) throws Exception {
 		
+		System.out.println(item);
 		
-		return new Message();
+		int result = allDao.getShoppingCartDao().insertItem(item);
+		
+		if(result == 1) {
+			System.out.println("성공");
+			return new Message("장바구니 등록 성공!");
+		}
+		else {
+			System.out.println("실패");
+			return new Message("장바구니 등록 실패...");
+		}	
 	}
-	
 }

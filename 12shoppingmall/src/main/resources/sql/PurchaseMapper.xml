@@ -96,8 +96,6 @@
 					WHERE buyer_id=#{value} ) origin
 	</select>
 
-	
-	
 	<update id="updatePurchase" parameterType="purchase">
 		UPDATE transaction
 		<set>

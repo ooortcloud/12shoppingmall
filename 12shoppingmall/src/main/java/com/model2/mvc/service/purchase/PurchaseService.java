@@ -8,6 +8,7 @@ import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.domain.ShoppingCartItem;
 import com.model2.mvc.service.domain.User;
+import com.model2.mvc.service.dto.purchase.ShoppingCartItemDto;
 
 
 public interface PurchaseService {
@@ -26,5 +27,5 @@ public interface PurchaseService {
 	
 	public User getUser(String userId) throws Exception;
 	
-	public List<ShoppingCartItem> getShoppingCartList(String userId) throws Exception;
+	public List<ShoppingCartItemDto> getShoppingCartList(String userId) throws Exception;
 }

@@ -105,12 +105,13 @@
 				},
 				dataType : "JSON",
 				data : JSON.stringify({
-					msg : "ok"
+					prodNo : "${requestScope.product.prodNo}",
+					userId : "${sessionScope.user.userId}",
+					prodName : "${product.prodName}"
 				}),
 				success : function(responseBody, httpStatus) {
 					
-					alert("성공적으로 장바구니에 추가되었습니다.");
-					
+					alert(responseBody.msg);
 				}
 			});
 		}).on('mouseover', function() {

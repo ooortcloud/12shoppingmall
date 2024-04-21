@@ -22,4 +22,6 @@ public class AllDao {
 	@Autowired
 	private PurchaseDao purchaseDao;
 	
+	@Autowired
+	private ShoppingCartDao shoppingCartDao;
 }

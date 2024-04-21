@@ -22,8 +22,6 @@ public interface PurchaseDao {
 	// 하지만 무엇보다도 @Mapper에서는 return type 기반으로 proxy 객체를 generate하기 떄문에, 단건 조회로 진행해야 처리하기 편리함.
 	public List<Purchase> getPurchaseList(Map<String ,Object> map) throws Exception;
 	
-	public List<ShoppingCartItem> getShoppingCartList(String userId) throws Exception;
-	
 	public int getTotalCount(String buyerId) throws Exception;
 
 	public int updateTranCode(Purchase purchase) throws SQLException;

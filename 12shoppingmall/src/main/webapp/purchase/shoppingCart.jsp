@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,34 +86,11 @@
 						<input class="checkbox" type="checkbox">
 					</div>
 				</th>
-				<td><a href="/product/getProduct/search?prodNo=${purchase.purchaseProd.prodNo }">${purchase.purchaseProd.prodNo }</a></td>
-				<td>${purchase.purchaseProd.prodName }</td>
+				<td><a href="/product/getProduct/search?prodNo=${item.prodNo }">${item.prodNo }</a></td>
+				<td>${item.prodName }</td>
 				<td>${purchase.numberOfPurchase }</td>
-				<td>${purchase.orderDate }</td>
-				<%-- tran_state_code : "1" = "구매완료", "2" = "배송중", "3" = "배송완료" --%>
-				<td id="${purchase.tranNo }">
-					<c:if test="${ purchase.tranCode == 1 }">
-						현재 구매완료 상태입니다.
-					</c:if><c:if test="${ purchase.tranCode == 2 }">
-						현재 배송중 입니다. 
-					</c:if><c:if test="${ purchase.tranCode == 3 }">
-						현재 배송완료 상태 입니다.
-					</c:if>
-				</td>
-				<td>
-					<c:if test="${purchase.tranCode == 1 }">
-						<!-- <span id="modifier1">구매 정보 확인 및 수정</span>  -->
-						<a href="/purchase/getPurchase?tranNo=${purchase.tranNo }">구매 정보 확인 및 수정</a> 
-					</c:if><c:if test="${purchase.tranCode == 2 }">
-						<!-- <span id="modifier2">물건 도착 알리기</span>  -->
-						<%--<a href="/purchase/updateTranCode?tranNo=${purchase.tranNo }&tranCode=3">물건 도착 알리기</a>  --%>
-						<span id="${purchase.tranNo }" onclick="notifyArrival(event)">물건 도착 알리기</span>
-						<p>   
-					</c:if>
-				</td>
 			</tr>
-			<c:set var="num" value="${ num-1 }" />
-		</c:forEach>
+			</c:forEach>
 		</tbody>
 	</table>
 	</div>
