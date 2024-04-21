@@ -2,7 +2,9 @@ package com.model2.mvc.web.purchase;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +25,7 @@ import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.CommonUtil;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
+import com.model2.mvc.service.domain.ShoppingCartItem;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.purchase.PurchaseService;
 
@@ -196,10 +199,17 @@ public class PurchaseController {
 		return mv;
 	}
 	
-	@GetMapping("/shoppingCart")
-	public ModelAndView shoppingCart() throws Exception {
+	//==================================================================================
+	//shoppingcart :: 결제 기능 세부 요소이기에 controller 분리는 안 했다.
+	//==================================================================================
 		
+	@GetMapping("/shoppingCartList")
+	public ModelAndView shoppingCartList(HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView("forward:/purchase/shoppingCart.jsp");
 		
+		String userId = ( (User)session.getAttribute("user") ).getUserId();
+		mv.addObject("list", service.getShoppingCartList(userId));
+		return mv;
 	}
 	
 }

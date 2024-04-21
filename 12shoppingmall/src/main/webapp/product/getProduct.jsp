@@ -92,9 +92,27 @@
 			$(this).css('cursor', 'default');
 		});
 		
-		$('button:containes("장바구니")').on('click', function() {
+		$('button:contains("장바구니")').on('click', function() {
 			
 			// REST 통신으로 장바구니 list에 추가
+			$.ajax({
+				
+				url : "/rest/purchase/addShoppingCart",
+				method:"POST",
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				dataType : "JSON",
+				data : JSON.stringify({
+					msg : "ok"
+				}),
+				success : function(responseBody, httpStatus) {
+					
+					alert("성공적으로 장바구니에 추가되었습니다.");
+					
+				}
+			});
 		}).on('mouseover', function() {
 			$(this).css('cursor', 'pointer');
 		}).on('mouseout', function() {

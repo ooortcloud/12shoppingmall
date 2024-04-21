@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.model2.mvc.common.Message;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.dto.product.UpdateTranCodeByProdDto;
@@ -78,5 +79,15 @@ public class PurchaseRestController {
 			return false;
 	}
 	
+	//==================================================================================
+	//shoppingcart :: 결제 기능 세부 요소이기에 controller 분리는 안 했다.
+	//==================================================================================
+	
+	@PostMapping("/addShoppingCart")
+	public Message addShoppingCart(@RequestBody Message msg) throws Exception {
+		
+		
+		return new Message();
+	}
 	
 }

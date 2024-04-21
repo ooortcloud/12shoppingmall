@@ -55,6 +55,13 @@ CREATE TABLE transaction (
 	PRIMARY KEY(tran_no)
 );
 
+CREATE TABLE shopping_cart (
+	cart_no	NUMBER	NOT NULL,
+	user_id	VARCHAR2(20)	NOT NULL REFERENCES users(user_id),
+	prod_no	NUMBER(16) NOT NULL REFERENCES product(prod_no),
+	PRIMARY KEY(cart_no)
+);
+
 
 INSERT 
 INTO users ( user_id, user_name, password, role, ssn, cell_phone, addr, email, reg_date ) 

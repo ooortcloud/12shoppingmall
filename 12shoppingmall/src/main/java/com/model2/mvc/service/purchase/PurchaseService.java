@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
+import com.model2.mvc.service.domain.ShoppingCartItem;
 import com.model2.mvc.service.domain.User;
 
 
@@ -24,4 +25,6 @@ public interface PurchaseService {
 	public Product getProduct(int prodNo) throws Exception;
 	
 	public User getUser(String userId) throws Exception;
+	
+	public List<ShoppingCartItem> getShoppingCartList(String userId) throws Exception;
 }

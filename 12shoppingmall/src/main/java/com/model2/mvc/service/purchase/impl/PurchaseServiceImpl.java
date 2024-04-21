@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
+import com.model2.mvc.service.domain.ShoppingCartItem;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.purchase.PurchaseDao;
 import com.model2.mvc.service.purchase.PurchaseService;
@@ -104,5 +105,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public User getUser(String userId) throws Exception {
 		return allDao.getUserDao().getUser(userId);
+	}
+	
+	@Override
+	public List<ShoppingCartItem> getShoppingCartList(String userId) throws Exception {
+		return allDao.getPurchaseDao().getShoppingCartList(userId);
 	}
 }

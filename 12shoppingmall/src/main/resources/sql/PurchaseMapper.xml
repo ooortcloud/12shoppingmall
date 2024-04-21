@@ -97,6 +97,7 @@
 	</select>
 
 	
+	
 	<update id="updatePurchase" parameterType="purchase">
 		UPDATE transaction
 		<set>

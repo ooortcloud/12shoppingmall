@@ -12,7 +12,10 @@
 	       
 		<a class="navbar-brand" href="/">Model2 MVC Shop</a>
 
-		<p class="navbar-text">${sessionScope.user.userName }</p>
+		<!-- root page에서만 유저 이름 노출 -->
+		<c:if test="${pageContext.request.requestURI == '/' }">
+			<p class="navbar-text">${sessionScope.user.userName }</p>
+		</c:if>
 		
 		<!-- toolBar Button Start //////////////////////// -->
 		<div class="navbar-header">
@@ -78,7 +81,7 @@
 	                         
 	                         <c:if test="${sessionScope.user.role == 'user'}">
 	                           <li><a href="/purchase/listPurchase">구매이력조회</a></li>
-	                           <li><a href="/purchase/shoppingCart">장바구니</a></li>
+	                           <li><a href="/purchase/shoppingCartList">장바구니</a></li>
 	                         </c:if>
 	                         
 	                         <li><a id="history">최근본상품</a></li>
