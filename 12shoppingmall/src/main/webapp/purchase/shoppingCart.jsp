@@ -77,6 +77,7 @@
 			<th>상품ID</th>
 			<th>상품명</th>
 			<th>구매수량</th>
+			<th>금액</th>
 		</thead>
 		<tbody>
 			<c:forEach var="item" items="${requestScope.list }">
@@ -88,7 +89,9 @@
 				</th>
 				<td><a href="/product/getProduct/search?prodNo=${item.prodNo }">${item.prodNo }</a></td>
 				<td>${item.prodName }</td>
-				<td>${purchase.numberOfPurchase }</td>
+				<!-- checkbox의 순서와 동일하므로, 동일한 class에 대한 JQuery array에 대해 순서로 selector 사용하여 접근해보자. -->
+				<td class="numberOfPurchase"></td>
+				<td class="price"></td>
 			</tr>
 			</c:forEach>
 		</tbody>
