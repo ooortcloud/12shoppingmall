@@ -57,8 +57,8 @@ CREATE TABLE transaction (
 
 CREATE TABLE shopping_cart (
 	cart_no	NUMBER	NOT NULL,
-	user_id	VARCHAR2(20)	NOT NULL REFERENCES users(user_id),
 	prod_no	NUMBER(16) NOT NULL REFERENCES product(prod_no),
+	user_id	VARCHAR2(20)	NOT NULL REFERENCES users(user_id),
 	PRIMARY KEY(cart_no)
 );
 

@@ -212,4 +212,9 @@ public class PurchaseController {
 		return mv;
 	}
 	
+	/*
+	// 장바구니 내 결제 기능
+	@PostMapping("/checkOutOfTheCart")
+	public ModelAndView
+	*/
 }

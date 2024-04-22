@@ -15,4 +15,6 @@ public class ShoppingCartItemDto {
 	private Integer prodNo;
 	private String userId;
 	private String prodName;
+	private Integer inventory;
+	private Integer price;
 }

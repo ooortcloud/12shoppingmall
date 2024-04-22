@@ -11,6 +11,8 @@
 		<result property="prodNo" column="prod_no" jdbcType="NUMERIC" />
 		<result property="userId" column="user_id" jdbcType="VARCHAR" />
 		<result property="prodName" column="prod_name" jdbcType="VARCHAR" />
+		<result property="inventory" column="inventory" jdbcType="NUMERIC" />
+		<result property="price" column="price" jdbcType="NUMERIC" />
 	</resultMap>
 	
 	<insert id="insertItem" parameterType="shoppingCartItem">
@@ -21,10 +23,12 @@
 	
 	<select id="getShoppingCartList" parameterType="string" resultMap="shoppingCartSelectMap">
 		SELECT
-		s.*, p.prod_name
+		s.*, p.prod_name, p.inventory, p.price
 		FROM shopping_cart s, product p
 		WHERE s.user_id = #{value}
 			AND s.prod_no = p.prod_no
 	</select>
+	
+	
 
 </mapper>
