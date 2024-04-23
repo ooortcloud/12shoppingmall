@@ -27,5 +27,13 @@ public interface PurchaseService {
 	
 	public User getUser(String userId) throws Exception;
 	
+	//==================================================================================
+	//shoppingcart :: 결제 기능 세부 요소이기에 service 분리는 안 했다.
+	//==================================================================================
+	
 	public List<ShoppingCartItemDto> getShoppingCartList(String userId) throws Exception;
+	
+	public int insertItem(ShoppingCartItem item) throws Exception;
+	
+	public int checkShoppingCart(ShoppingCartItem item) throws Exception; 
 }

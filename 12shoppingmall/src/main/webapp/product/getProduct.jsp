@@ -94,10 +94,10 @@
 		
 		$('button:contains("장바구니")').on('click', function() {
 			
-			// REST 통신으로 장바구니 list에 추가
+			// 중복해서 담지 못하게 해야 함
 			$.ajax({
 				
-				url : "/rest/purchase/addShoppingCart",
+				url : "/rest/purchase/checkShoppingCart",
 				method:"POST",
 				headers : {
 					"Accept" : "application/json",
@@ -107,11 +107,36 @@
 				data : JSON.stringify({
 					prodNo : "${requestScope.product.prodNo}",
 					userId : "${sessionScope.user.userId}",
-					prodName : "${product.prodName}"
 				}),
 				success : function(responseBody, httpStatus) {
 					
-					alert(responseBody.msg);
+					console.log(responseBody.msg);
+					if(responseBody.msg != "ok")
+						alert(responseBody.msg);
+					
+					else {
+						
+						// REST 통신으로 장바구니 list에 추가
+						$.ajax({
+							
+							url : "/rest/purchase/addShoppingCart",
+							method:"POST",
+							headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+							},
+							dataType : "JSON",
+							data : JSON.stringify({
+								prodNo : "${requestScope.product.prodNo}",
+								userId : "${sessionScope.user.userId}",
+								prodName : "${product.prodName}"
+							}),
+							success : function(responseBody, httpStatus) {
+								
+								alert(responseBody.msg);
+							}
+						});
+					}
 				}
 			});
 		}).on('mouseover', function() {

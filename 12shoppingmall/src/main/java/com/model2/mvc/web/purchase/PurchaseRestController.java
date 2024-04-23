@@ -23,14 +23,9 @@ import com.model2.mvc.service.purchase.impl.AllDao;
 @RequestMapping("/rest/purchase")
 public class PurchaseRestController {
 
-	/*
 	@Autowired
 	@Qualifier("purchaseServiceImpl")
 	private PurchaseService service;
-	*/
-	
-	@Autowired
-	private AllDao allDao;
 
 	@Value("${common.pageSize}")
 	int pageSize;
@@ -57,7 +52,7 @@ public class PurchaseRestController {
 		
 		purchase.setTranCode(dto.getTranCode());
 		purchase.setPurchaseProd(product);
-		int result = allDao.getPurchaseDao().updateTranCode(purchase);
+		int result = service.updateTranCode(purchase);
 		
 		if (result == 1)
 			return true;
@@ -78,7 +73,7 @@ public class PurchaseRestController {
 		purchase.setTranNo(dto.getTranNo());
 		purchase.setTranCode("3");
 		
-		int result = allDao.getPurchaseDao().updateTranCode(purchase);
+		int result = service.updateTranCode(purchase);
 		
 		if(result == 1)
 			return true;
@@ -95,7 +90,7 @@ public class PurchaseRestController {
 		
 		System.out.println(item);
 		
-		int result = allDao.getShoppingCartDao().insertItem(item);
+		int result = service.insertItem(item);
 		
 		if(result == 1) {
 			System.out.println("성공");
@@ -105,5 +100,16 @@ public class PurchaseRestController {
 			System.out.println("실패");
 			return new Message("장바구니 등록 실패...");
 		}	
+	}
+	
+	@PostMapping("/checkShoppingCart")
+	public Message checkShoppingCart(@RequestBody ShoppingCartItem item) throws Exception {
+		
+		int result = service.checkShoppingCart(item);
+		
+		if(result == 1)
+			return new Message("이미 장바구니에 존재하는 상품입니다.");
+		else
+			return new Message("ok");
 	}
 }

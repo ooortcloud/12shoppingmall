@@ -13,4 +13,6 @@ public interface ShoppingCartDao {
 	public int insertItem(ShoppingCartItem item) throws Exception;
 	
 	public List<ShoppingCartItemDto> getShoppingCartList(String userId) throws Exception;
+	
+	public int checkShoppingCart(ShoppingCartItem item) throws Exception;
 }

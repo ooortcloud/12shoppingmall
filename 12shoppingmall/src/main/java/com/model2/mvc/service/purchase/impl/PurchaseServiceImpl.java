@@ -97,19 +97,35 @@ public class PurchaseServiceImpl implements PurchaseService {
 			return allDao.getPurchaseDao().updatePurchase(purchase);
 		}
 	}
-
-	@Override
-	public Product getProduct(int prodNo) throws Exception {
-		return allDao.getProductDao().findProduct(prodNo);
-	}
 	
 	@Override
+	public Product getProduct(int prodNo) throws Exception {
+		// TODO Auto-generated method stub
+		return allDao.getProductDao().findProduct(prodNo);
+	}
+
+	@Override
 	public User getUser(String userId) throws Exception {
+		// TODO Auto-generated method stub
 		return allDao.getUserDao().getUser(userId);
 	}
+
+	//==================================================================================
+	//shoppingcart :: 결제 기능 세부 요소이기에 service 분리는 안 했다.
+	//==================================================================================
 	
 	@Override
 	public List<ShoppingCartItemDto> getShoppingCartList(String userId) throws Exception {
 		return allDao.getShoppingCartDao().getShoppingCartList(userId);
+	}
+	
+	@Override
+	public int insertItem(ShoppingCartItem item) throws Exception {
+		// TODO Auto-generated method stub
+		return allDao.getShoppingCartDao().insertItem(item);
+	}
+	
+	public int checkShoppingCart(ShoppingCartItem item) throws Exception {
+		return allDao.getShoppingCartDao().checkShoppingCart(item);
 	}
 }

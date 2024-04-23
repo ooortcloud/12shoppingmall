@@ -29,6 +29,12 @@
 			AND s.prod_no = p.prod_no
 	</select>
 	
-	
+	<select id="checkShoppingCart" parameterType="shoppingCartItem" resultType="int">
+		SELECT 
+		COUNT(*)
+		FROM shopping_cart
+		WHERE prod_no = #{prodNo}
+			AND user_id = #{userId}
+	</select>
 
 </mapper>
