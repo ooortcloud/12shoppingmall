@@ -16,8 +16,8 @@ import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.domain.ShoppingCartItem;
 import com.model2.mvc.service.dto.product.UpdateTranCodeByProdDto;
 import com.model2.mvc.service.dto.product.UpdateTranCodeDto;
+import com.model2.mvc.service.purchase.AllDao;
 import com.model2.mvc.service.purchase.PurchaseService;
-import com.model2.mvc.service.purchase.impl.AllDao;
 
 @RestController
 @RequestMapping("/rest/purchase")
@@ -111,5 +111,16 @@ public class PurchaseRestController {
 			return new Message("이미 장바구니에 존재하는 상품입니다.");
 		else
 			return new Message("ok");
+	}
+	
+	@PostMapping("/deleteShoppingCartItem")
+	public Message deleteShoppingCartItem(@RequestBody ShoppingCartItem item) throws Exception {
+		
+		int result = service.deleteShoppingCartItem(item.getCartNo());
+		
+		if(result == 1)
+			return new Message("ok");
+		else
+			return new Message("정상적으로 삭제가 진행되지 못했습니다...");
 	}
 }

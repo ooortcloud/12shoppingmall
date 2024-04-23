@@ -37,4 +37,9 @@
 			AND user_id = #{userId}
 	</select>
 
+	<delete id="deleteShoppingCartItem" parameterType="int">
+		DELETE FROM shopping_cart
+		WHERE cart_no = #{value}
+	</delete>
+
 </mapper>

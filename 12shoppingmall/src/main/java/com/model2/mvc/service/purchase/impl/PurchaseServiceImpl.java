@@ -15,6 +15,7 @@ import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.domain.ShoppingCartItem;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.dto.purchase.ShoppingCartItemDto;
+import com.model2.mvc.service.purchase.AllDao;
 import com.model2.mvc.service.purchase.PurchaseDao;
 import com.model2.mvc.service.purchase.PurchaseService;
 
@@ -128,4 +129,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public int checkShoppingCart(ShoppingCartItem item) throws Exception {
 		return allDao.getShoppingCartDao().checkShoppingCart(item);
 	}
+
+	@Override
+	public int deleteShoppingCartItem(Integer cartNo) throws Exception {
+		// TODO Auto-generated method stub
+		return allDao.getShoppingCartDao().deleteShoppingCartItem(cartNo);
+	}
+	
+	
 }

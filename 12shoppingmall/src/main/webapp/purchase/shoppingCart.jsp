@@ -89,11 +89,46 @@
    				calculateSum();
    			});
    			
-   			$('input[type="checkbox"]').on('change', function(event) {
+   			$('input[type="checkbox"]').on('change', function() {
    				calculateSum();
    			})
    		});
+   		
+   		$(function() {
+   			
+   			$('button:contains("삭제")').on('click', function(event) {
+   				
+   				// 사용자가 임의로 hidden data를 변경할 수 있을까?
+   				const number = $(event.target).parents().parents().attr('id');
+   				const cartNo = $('#cartNo'+number).text();
+   				
+   				console.log($('#'+number).html());
+   				$.ajax({
+   					
+   					url : "/rest/purchase/deleteShoppingCartItem",
+					method : "POST",
+					headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+					dataType :"JSON",
+					data : JSON.stringify({
+						cartNo : cartNo					
+					}),
+					success : function(responseBody, httpStatus) {
+						
+						if(responseBody.msg == "ok") {
+							$('#'+number).remove()
+						} else {
+							alert(responseBody.msg);
+						}
+						
+					}
+   				});
+   			})
+   		});
    	</script>
+   	
    	
 </head>
 <body>
@@ -153,6 +188,7 @@
 				</td>
 				<td>
 					<button type="button" class="btn btn-default" id="delete${num }">삭제</button>
+					<p id="cartNo${num }" style="display:none;">${item.cartNo }</p>	
 				</td>
 				
 			</tr>

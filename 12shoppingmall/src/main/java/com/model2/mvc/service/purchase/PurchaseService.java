@@ -36,4 +36,6 @@ public interface PurchaseService {
 	public int insertItem(ShoppingCartItem item) throws Exception;
 	
 	public int checkShoppingCart(ShoppingCartItem item) throws Exception; 
+	
+	public int deleteShoppingCartItem(Integer cartNo) throws Exception;
 }
