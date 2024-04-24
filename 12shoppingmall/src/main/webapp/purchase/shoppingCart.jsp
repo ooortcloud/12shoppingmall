@@ -40,7 +40,7 @@
    	
    	<script type="text/javascript">
    	
-   		function calculateSum() {
+   		function calculateSum(event) {
    			
    			const arr = $('tr');
 				let sum = 0;
@@ -50,8 +50,7 @@
 					const row = $(arr[i]);
 					const price = parseInt($('#numberOfPurchase'+i).val()) * parseInt($('#priceVal'+i).text());
 					
-					if( parseInt($('#numberOfPurchase'+i).val()) > 0 )
-						row.find('span').text( price );
+					row.find('span').text( price );
 					
 					if(row.find('input:checkbox').is(':checked')) {
 						sum += price;
@@ -85,8 +84,15 @@
    		$(function() {
    			
    			// 개수를 수정할 때마다 총 금액 계산에 반영
-   			$('input[type="number"]').on('change', function() {
-   				calculateSum();
+   			$('input[type="number"]').on('change', function(event) {
+   				
+   				
+   				if($(event.target).val() < 0) {
+   					alert('구매 수량은 반드시 0 이상이어야 합니다.');
+   					$(event.target).val(0);
+   				}
+   				
+   				calculateSum(event);	
    			});
    			
    			$('input[type="checkbox"]').on('change', function() {
