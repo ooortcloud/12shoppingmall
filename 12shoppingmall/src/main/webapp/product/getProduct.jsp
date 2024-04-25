@@ -214,9 +214,14 @@ console.log("document.referrer = " + document.referrer);
 	</table>
 	
 	<div class="row">
-		<button type="button" class="btn btn-default col-sm-offset-9">구매</button>
-		<button type="button" class="btn btn-default">장바구니에 담기</button>
-		<button type="button" class="btn btn-default">이전</button>
+		<c:if test="${sessionScope.user.role != 'admin'}">
+			<button type="button" class="btn btn-default col-sm-offset-9">구매</button>
+			<button type="button" class="btn btn-default">장바구니에 담기</button>
+			<button type="button" class="btn btn-default">이전</button>
+		</c:if>
+		<c:if test="${sessionScope.user.role == 'admin'}">
+			<button type="button" class="btn btn-default col-sm-offset-11">이전</button>
+		</c:if>
 	</div>
 </div> <!-- container end -->
 
