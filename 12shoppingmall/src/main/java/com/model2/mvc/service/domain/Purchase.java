@@ -3,6 +3,7 @@ package com.model2.mvc.service.domain;
 
 import java.sql.Date;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

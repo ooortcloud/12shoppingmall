@@ -16,6 +16,6 @@ public class ShoppingCartItem {
 	private Integer prodNo;
 	
 	private String prodName;
-	private boolean selected;  // true :: 구매 대상
+	private String selected;  // true :: 구매 대상
 	private Integer numberOfPurchase;
 }

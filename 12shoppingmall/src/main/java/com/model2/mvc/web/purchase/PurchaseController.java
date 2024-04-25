@@ -12,10 +12,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +29,8 @@ import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.domain.ShoppingCartItem;
 import com.model2.mvc.service.domain.User;
+import com.model2.mvc.service.dto.purchase.ShoppingCartItemListDto;
+import com.model2.mvc.service.dto.purchase.CheckOutDto;
 import com.model2.mvc.service.purchase.PurchaseService;
 
 @Controller
@@ -212,9 +216,47 @@ public class PurchaseController {
 		return mv;
 	}
 	
+	
 	/*
-	// 장바구니 내 결제 기능
+	// 장바구니 내 결제 기능 (다중 구매)
 	@PostMapping("/checkOutOfTheCart")
-	public ModelAndView
+	public ModelAndView checkOutOfTheCart(@ModelAttribute(name = "shoppingCartItemListDto") ShoppingCartItemListDto dto) {
+		ModelAndView mv = new ModelAndView("forward:/purchase/checkOutShoppingCart.jsp");
+		
+		System.out.println(dto.getShoppingCartItemList());
+		return mv;		
+	}
 	*/
+	
+	//Spring은 (아마도 정확히는 @RequestBody는) Content type 'application/x-www-form-urlencoded'를 지원하지 못한다고 한다.
+	// org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported
+	@PostMapping(path="/checkOutOfTheCart")
+	public ModelAndView checkOutOfTheCart(@ModelAttribute CheckOutDto dto, HttpSession session ) throws Exception {
+		ModelAndView mv = new ModelAndView("forward:/purchase/listPurchase");
+
+
+		for(String str : dto.getSelected()) {
+			String[] temp = str.split(" ");
+			int prodNo = Integer.parseInt(temp[0]);
+			int index = Integer.parseInt(temp[1]);
+			int cartNo = Integer.parseInt(temp[2]);
+			Integer numberOfPurchase = dto.getNumberOfPurchase()[index];
+			
+			// 하나라도 잘못되면 transaction에 의해 rollback되도록 유도
+			Purchase purchase = new Purchase();
+			purchase.setBuyer( service.getUser( ((User)session.getAttribute("user")).getUserId() ) );
+			purchase.setPurchaseProd( service.getProduct(prodNo) );
+			purchase.setNumberOfPurchase(numberOfPurchase);	
+			purchase.setTranCode("1");
+			
+			// batch 등을 통한 query 최적화가 가능하긴 함. 하지만 현재 그럴만한 개발 비용 여유가 없기도 하고, 장바구니에 100개씩 넣고 주문할 일도 없고...
+			if ((service.addPurchase(purchase) == 1) && (service.deleteShoppingCartItem(cartNo) == 1) ) {
+				continue;
+			} else {
+				return null;
+			}
+		}		
+		
+		return mv;		
+	}
 }

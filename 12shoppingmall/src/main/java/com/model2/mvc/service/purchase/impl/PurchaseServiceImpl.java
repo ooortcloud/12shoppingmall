@@ -134,7 +134,5 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public int deleteShoppingCartItem(Integer cartNo) throws Exception {
 		// TODO Auto-generated method stub
 		return allDao.getShoppingCartDao().deleteShoppingCartItem(cartNo);
-	}
-	
-	
+	}	
 }

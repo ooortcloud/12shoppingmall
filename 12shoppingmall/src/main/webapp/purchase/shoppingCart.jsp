@@ -86,11 +86,20 @@
    			// 개수를 수정할 때마다 총 금액 계산에 반영
    			$('input[type="number"]').on('change', function(event) {
    				
-   				
+   				// '구매' button을 누를 때, 사용자가 임의로 input 값 변경이 가능한가?
    				if($(event.target).val() < 0) {
    					alert('구매 수량은 반드시 0 이상이어야 합니다.');
    					$(event.target).val(0);
    				}
+   				
+   				// 현재 재고보다 많은 수량을 요구하는 경우 deny
+   				/*
+   				if($(event.target).val() > ) {
+   					
+   					const inventory;
+   					alert("현재 재고보다 적은 수량을 주문해주세요.\n" + "현재 재고 수량 = " + inventory);
+   				}
+   				*/
    				
    				calculateSum(event);	
    			});
@@ -133,6 +142,27 @@
    				});
    			})
    		});
+   		
+   		$(function() {
+   			
+   			$('button:contains("구매")').on('click', function() {
+   				
+   				const checkboxes = $('input[type="checkbox"]');
+   				const allChecked = checkboxes.filter(':checked').length === 0;
+
+   				if (allChecked) {
+   				  alert('하나 이상의 상품을 선택해주세요.');
+   				  return false;
+   				}   				
+   				
+   				const form = $('#shoppingCartList');
+   				
+   				
+   				form.attr('action', "/purchase/checkOutOfTheCart");
+   				form.attr('method', "post");
+   				form.submit();
+   			});
+   		});
    	</script>
    	
    	
@@ -158,7 +188,7 @@
 		
 	<div class="container">
 	
-		<form >
+		<form id="shoppingCartList">
 		<table class='table table-striped'>
 		<thead>
 			<th>선택</th>
@@ -176,7 +206,8 @@
 			<tr id="${num }">
 				<th scope='row'>
 					<div>
-						<input class="checkbox" type="checkbox" name="checkbox">
+						<%-- 보안 상 안전한 방식인가? --%>
+						<input class="checkbox" type="checkbox" name="selected" value="${item.prodNo} ${num-1} ${item.cartNo}">
 					</div>
 				</th>
 				<td><a href="/product/getProduct/search?prodNo=${item.prodNo }">${item.prodNo }</a></td>
