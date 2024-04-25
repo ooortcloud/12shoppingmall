@@ -40,7 +40,7 @@
    	
    	<script type="text/javascript">
    	
-   		function calculateSum(event) {
+   		function calculateSum() {
    			
    			const arr = $('tr');
 				let sum = 0;
@@ -58,6 +58,34 @@
 				}
 				
 			$('#totalPrice').text(sum);
+   		}
+   		
+   		function checkInventory(prodNo) {
+
+   			return new Promise((resolve,reject) => {
+
+   				$.ajax({
+   					
+   					url : "/rest/product/checkInventory",
+
+   					method : "POST",
+	
+   					dataType : "text",
+
+   					headers : {
+
+	   					"Accept" : "text/plain",
+	
+	   					"Content-Type" : "text/plain"
+
+   					},
+   					data : prodNo,
+   					success : function(numberOfInventory) {
+
+   						resolve(numberOfInventory);
+   					}
+   				});
+			});
    		}
    	</script>
    	
@@ -87,21 +115,28 @@
    			$('input[type="number"]').on('change', function(event) {
    				
    				// '구매' button을 누를 때, 사용자가 임의로 input 값 변경이 가능한가?
-   				if($(event.target).val() < 0) {
+   				const numberOfPurchase = $(event.target).val();
+   				if(numberOfPurchase < 0) {
    					alert('구매 수량은 반드시 0 이상이어야 합니다.');
    					$(event.target).val(0);
    				}
-   				
+
    				// 현재 재고보다 많은 수량을 요구하는 경우 deny
-   				/*
-   				if($(event.target).val() > ) {
+   				const prodNo = $($($(event.target).parents()[2]).find("td")[0]).text();
+   				checkInventory(prodNo)
+   				.then(function(inventory){
+					
+   					// 최대 개수를 넘지 못하게 보정
+   					if(parseInt(inventory) < parseInt(numberOfPurchase)) {
+   						alert("현재 최대 재고는 "+inventory+" 개 입니다.");
+   						$(event.target).val(inventory);
+   					}
    					
-   					const inventory;
-   					alert("현재 재고보다 적은 수량을 주문해주세요.\n" + "현재 재고 수량 = " + inventory);
-   				}
-   				*/
-   				
-   				calculateSum(event);	
+   					calculateSum();
+   				}).catch(function(err) {
+   					// error 객체를 만들지 않았으니 불필요하긴 함. 하지만 reference를 위해 작성함.
+   					console.log("fail");
+   				});
    			});
    			
    			$('input[type="checkbox"]').on('change', function() {

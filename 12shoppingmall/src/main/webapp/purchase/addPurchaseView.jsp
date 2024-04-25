@@ -88,7 +88,7 @@
 					console.log(parseInt(data) < numberOfPurchase);
 					if(parseInt(data) < numberOfPurchase) {
 						alert("구매 수량이 현재 재고보다 많습니다. 현재 재고 = " +data );
-						reject(new Error());  // Promise chain 부수고 끝내버림
+						reject(new Error());
 					} else {
 						document.addPurchase.submit();	
 					}
