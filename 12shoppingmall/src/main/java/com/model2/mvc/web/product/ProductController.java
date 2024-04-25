@@ -1,9 +1,6 @@
 package com.model2.mvc.web.product;
 
 import java.io.File;
-import java.io.IOException;
-import java.sql.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.UUID;
@@ -12,7 +9,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.filters.ExpiresFilter.XServletOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,13 +19,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.model2.mvc.common.Message;
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.CommonUtil;
@@ -98,6 +91,7 @@ public class ProductController {
 		imagePath = imagePath + "../resources/static/images/uploadFiles";
 		System.out.println("path :: " + imagePath);
 		
+		/*
 		/// 사용자가 image를 넣지 않는 경우,  예외 file로 대체하여 저장
 		if(thumbnail.isEmpty())  {
 			product.setFileName(null);
@@ -134,6 +128,8 @@ public class ProductController {
 		model.addAttribute("product", product);  // setter...
 		
 		return "forward:/product/addProduct.jsp";
+		*/
+		return null;
 	}
 	
 	

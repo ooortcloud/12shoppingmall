@@ -12,12 +12,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.model2.mvc.common.Message;
@@ -172,17 +170,21 @@ public class ProductRestController {
 	@PostMapping("/json/deleteProduct")
 	public Message deleteProduct(@RequestBody Product product, HttpServletRequest request) throws Exception{
 		
-		System.out.println("path :: " + request.getServletContext().getRealPath("/images/uploadFiles") + "\\" + product.getFileName());
-		
 		if(product.getFileName().isEmpty()) {
+			
 			int result = service.deleteProduct( product.getProdNo());
-			if(result != 1) 
-				return new Message("상품 삭제에 실패... :: DB error");
-			else
-	 			return new Message("ok");
+			
+			if(result != 1) {
+				return new Message("상품 삭제에 실패... :: DB에 fileName이 저장되어 있지 않음");
+			} else {
+				return new Message("ok");
+			}
 		}
 		
-		File oldFile = new File( request.getServletContext().getRealPath("/images/uploadFiles") + "\\" + product.getFileName() );
+		String rootPath = request.getServletContext().getRealPath("/");
+		System.out.println(rootPath);
+		
+		File oldFile = new File( rootPath + "\\..\\resources\\static\\images\\uploadFiles\\" + product.getFileName() );
 		if (oldFile.exists()) {
 			System.out.println("image file을 찾았습니다.");
 			boolean b = oldFile.delete();  // 상품 제거 시 image file도 같이 삭제...
@@ -191,10 +193,11 @@ public class ProductRestController {
 				return new Message("fail");
 			} else {
 				int result = service.deleteProduct( product.getProdNo());
-				if(result != 1) 
+				if(result != 1) {
 					return new Message("상품 삭제에 실패... :: DB error");
-				else
-		 			return new Message("ok");
+				} else {
+					return new Message("ok");
+				}
 			}
 		} else {
 			return new Message("image file을 찾지 못했습니다...");

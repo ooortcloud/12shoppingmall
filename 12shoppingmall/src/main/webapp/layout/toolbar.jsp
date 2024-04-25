@@ -3,7 +3,10 @@
 
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+		
+<script type="text/javascript">
+	console.log("${pageContext.request.requestURI}");
+</script>
 
 <!-- ToolBar Start /////////////////////////////////////-->
 <nav class="navbar navbar-fixed-top navbar-default">
@@ -13,9 +16,10 @@
 		<a class="navbar-brand" href="/">Model2 MVC Shop</a>
 
 		<!-- root page에서만 유저 이름 노출 -->
-		<c:if test="${pageContext.request.requestURI == '/' }">
+		<c:if test="${pageContext.request.requestURI == '/main.jsp' }">
 			<p class="navbar-text">${sessionScope.user.userName }</p>
 		</c:if>
+
 		
 		<!-- toolBar Button Start //////////////////////// -->
 		<div class="navbar-header">
