@@ -36,9 +36,9 @@
     </style>
     
 
-<script type="text/javascript">
+	<script type="text/javascript">
   
-function fncUpdateProduct(){
+	function fncUpdateProduct(){
 		//Form 유효성 검증
 	 	var name = document.detailForm.prodName.value;
 		var detail = document.detailForm.prodDetail.value;
@@ -65,8 +65,9 @@ function fncUpdateProduct(){
 		document.detailForm.action='/product/updateProduct';
 		document.detailForm.submit();
 	}
-
+	</script>
 	
+	<script type="text/javascript">
 	$( function() {
 		  
 		$('button:contains("수정")').on('click', function() {
@@ -123,9 +124,26 @@ function fncUpdateProduct(){
 			$(this).css('cursor', 'pointer');
 		}).on('mouseout', function() {
 			$(this).css('cursor', 'default');
-		});  
+		});
+		
+		$('input:file:first').on('change', function() {
+			
+			$('#thumbnail-preview-row').remove();
+			let temp = '';
+			temp += '<div id="thumbnail-preview-row" class="row">';
+			temp += '<div class="col-md-5">';
+			temp += '<p>변경 전</p>';
+			temp += '<img id="oldThumbnail" src="/images/uploadFiles/${product.fileName }" style="max-width : 400px; max-height : 300px;" align="absmiddle" />';
+			temp += '</div>';
+			temp += '<div class="col-md-5">';
+			temp += '<p>변경 후</p>';
+			temp += '<img id="newThumbnail" />';
+			temp += '</div>';
+			temp += '</div>';
+			$('#thumbnail-form-group').append(temp);
+		});
 	});  
-</script>
+	</script>
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
@@ -168,13 +186,12 @@ function fncUpdateProduct(){
 			      <div class="input-group-addon">원</div>
 		    	</div>
 			  </div>
-				<div class="form-group">
+				<div id="thumbnail-form-group" class="form-group">
 					<div>
 						<label for="thumbnail">썸네일</label>
 						<input type="file" id="thumbnail" name="thumbnail">
 						<p class="help-block">최대 10MB 이하만 가능합니다...</p>
 					</div>
-					<img src="/images/uploadFiles/${product.fileName }" style="max-width : 400px; max-height : 300px;" align="absmiddle" />
 				</div>
 	
 			  <div class="form-group">
