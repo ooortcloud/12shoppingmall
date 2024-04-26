@@ -6,6 +6,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
+	/*
+	.my-thumbnail img {
+		width : 500px;
+		height : auto;
+	}
+	*/
+
 	.my-thumbnail:hover {
 		transform : scale(1.02);
 		transition : .5s;

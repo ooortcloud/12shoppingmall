@@ -138,9 +138,10 @@ $( function() {
 		  	<input type="number" class="form-control" name="inventory" id="inventory" placeholder="초기 수량을 입력해주세요">
 		  </div>
 		  <div class="form-group">
-		    <label for="thumbnail">상품 이미지</label>
+		    <label for="thumbnail">썸네일</label>
 		    <input type="file" id="thumbnail" name="thumbnail">
 		    <p class="help-block">최대 10MB 이하만 가능합니다...</p>
+		    <p class="help-block">썸네일 이외의 추가적인 이미지 등록은 상품 등록 후 수정 페이지에서 가능합니다.</p>
 		  </div>
 		  
 		  <div class="row">

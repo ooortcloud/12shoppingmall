@@ -168,11 +168,14 @@ function fncUpdateProduct(){
 			      <div class="input-group-addon">원</div>
 		    	</div>
 			  </div>
-			  <div class="form-group">
-			    <label for="thumbnail">상품 이미지</label>
-			    <input type="file" id="thumbnail" name="thumbnail">
-			    <p class="help-block">최대 10MB 이하만 가능합니다...</p>
-			  </div>
+				<div class="form-group">
+					<div>
+						<label for="thumbnail">썸네일</label>
+						<input type="file" id="thumbnail" name="thumbnail">
+						<p class="help-block">최대 10MB 이하만 가능합니다...</p>
+					</div>
+					<img src="/images/uploadFiles/${product.fileName }" style="max-width : 400px; max-height : 300px;" align="absmiddle" />
+				</div>
 	
 			  <div class="form-group">
 			    <label for="inventory">재고 수량</label>

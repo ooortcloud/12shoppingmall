@@ -90,8 +90,7 @@ public class ProductController {
 		String imagePath = request.getServletContext().getRealPath("/");
 		imagePath = imagePath + "../resources/static/images/uploadFiles";
 		System.out.println("path :: " + imagePath);
-		
-		/*
+
 		/// 사용자가 image를 넣지 않는 경우,  예외 file로 대체하여 저장
 		if(thumbnail.isEmpty())  {
 			product.setFileName(null);
@@ -128,8 +127,6 @@ public class ProductController {
 		model.addAttribute("product", product);  // setter...
 		
 		return "forward:/product/addProduct.jsp";
-		*/
-		return null;
 	}
 	
 	

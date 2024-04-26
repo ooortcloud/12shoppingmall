@@ -181,13 +181,25 @@ console.log("document.referrer = " + document.referrer);
 				<td>${requestScope.product.prodName }</td>
 			</tr>
 			<tr>
-				<th scope="row">상품이미지</th>
+				<!-- 썸네일은 list에서만 보이도록 함. -->
+				<th scope="row">썸네일</th>
 				<td>
 					<%--
 						이유는 모르겠으나, Spring boot 변경 후 folder 구조가 바뀌었는데도 기존 경로로도 유효하게 작동함.
 						Spring boot가 동적으로 처리하는 것으로 추측됨. (변경 직후 최초에는 적용이 안됐거든.)
 					 --%>
-					<img src="/images/uploadFiles/${product.fileName }" style="max-width : 400px; max-height : 300px;" align="absmiddle" />
+					 <img src="/images/uploadFiles/${product.fileName }" style="max-width : 400px; max-height : 300px;" align="absmiddle" />
+				</td>
+			</tr>
+			<tr>
+				<!-- 썸네일은 list에서만 보이도록 함. -->
+				<th scope="row">상품 이미지</th>
+				<td>
+					 <%--
+					 <c:forEach >
+						<img src="/images/uploadFiles/${product.fileName }" style="max-width : 400px; max-height : 300px;" align="absmiddle" /> 
+					 </c:forEach>
+					  --%>					
 				</td>
 			</tr>
 			<tr>
