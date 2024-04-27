@@ -4,7 +4,7 @@
 .my-thumbnail {
 	max-height : 200px;
 	/* javascript로 동적 변경 */
-	/* transform : translateX(-50%); */
+	transform : translateX(0);
 }
 
 .my-thumbnail:hover {

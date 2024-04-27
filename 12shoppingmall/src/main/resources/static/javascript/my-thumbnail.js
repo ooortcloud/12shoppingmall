@@ -23,10 +23,14 @@ function reSizeImg(border, image) {
 
 function reSizeImg(img) {
 	
-	let borderWidth = 243;
-	let imgWidth = img.css('width');
+	const borderWidth = 243;
+	const borderWidthCenter = borderWidth/2;
+	const imgWidthCenter = img.width()/2;  // css('width')는 [px]이 붙은 문자열이어서, 숫자 연산이 불가능함. 반드시 width() 사용.
 	
-	console.log(imgWidth);
+	const movePixel = imgWidthCenter - borderWidthCenter;
+		
+	img.css('transform', 'translateX(-'+movePixel+'px)');
+	console.log( img.css('transform') );
 }
 
 
