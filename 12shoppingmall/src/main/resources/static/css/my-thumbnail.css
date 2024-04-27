@@ -9,7 +9,7 @@
 
 .my-thumbnail:hover {
 	/* javascript로 동적 변경 */
-	/* transform : translateX(-50%) scale(1.02); */
+	transform : translateX(-50%) scale(1.02);
 	transition : .5s;
 }
 

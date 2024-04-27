@@ -1,36 +1,37 @@
-/*
-function reSizeImg(border, image) {
-	
-	const div = border; // 이미지를 감싸는 div
-	const img = image; // 이미지
-	const divAspect = 200 / 243; // height / width [px]
-	const imgAspect = img.height / img.width;
-	
-	if (imgAspect <= divAspect) {
-	    // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
-	    let imgWidthActual = div.offsetHeight / imgAspect;
-	    let imgWidthToBe = div.offsetHeight / divAspect;
-	    let marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2);
-	    img.style.cssText = 'width: auto; height: 100%; margin-left: '
-	                      + marginLeft + 'px;'
-	} else {
-	    // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
-	    img.style.cssText = 'width: 100%; height: auto; margin-left: 0;';
-	}
-}
-*/
-
 
 function reSizeImg(img) {
 	
 	const borderWidth = 243;
-	const borderWidthCenter = borderWidth/2;
-	const imgWidthCenter = img.width()/2;  // css('width')는 [px]이 붙은 문자열이어서, 숫자 연산이 불가능함. 반드시 width() 사용.
+	const imgWidth = img.width();
 	
-	const movePixel = imgWidthCenter - borderWidthCenter;
+	if(borderWidth < imgWidth) {
+		const borderWidthCenter = borderWidth/2;
+		const imgWidthCenter = imgWidth/2;  // css('width')는 [px]이 붙은 문자열을 return해서 숫자 연산이 불가능함. 반드시 width() 사용.
+		const movePixel = imgWidthCenter - borderWidthCenter;
+		img.css('transform', 'translateX(-'+movePixel+'px)');	
+		img.css('transform', 'translateX(-'+movePixel+'px)');
+	} 
+	// border 내 여백이 생기는 경우 다시 비율을 재조정 
+	// 처음부터 분기문을 통해 비율 조정을 1회만 하면 되지 않겠느냐 생각할 수 있겠지만, 어차피 width 계산을 하려면 결국 비율 계산 수행해야 함. 
+	// 그럴바에 computer에게 연산시킨 값을 보고 다시 재처리하는 것이 저렴하다고 판단함.
+	else {
+		// 비율 재조정
+		img.css('max-height', 'none');
+		img.css('max-width', '243px');	
 		
-	img.css('transform', 'translateX(-'+movePixel+'px)');
-	console.log( img.css('transform') );
+		
+		// const movePixel = imgWidthCenter - borderWidthCenter;
+		// img.css('transform', 'translateX(-'+movePixel+'px)');
+	}
 }
 
-
+/* 어떻게 하면 transform을 동적으로 멀티로 주입할 수 있을까.
+$(function(){
+	
+	$('.my-thumbnail').on('mouseover', function() {
+		$(this).css('transform', 'scale(1.02)');
+	}).on('mouseout', function() {
+		$(this).css('transform', 'scale(1)');
+	});
+});
+*/
