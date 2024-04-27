@@ -188,7 +188,7 @@ console.log("document.referrer = " + document.referrer);
 						이유는 모르겠으나, Spring boot 변경 후 folder 구조가 바뀌었는데도 기존 경로로도 유효하게 작동함.
 						Spring boot가 동적으로 처리하는 것으로 추측됨. (변경 직후 최초에는 적용이 안됐거든.)
 					 --%>
-					 <img src="/images/uploadFiles/${product.fileName }" style="max-width : 400px; max-height : 300px;" align="absmiddle" />
+					 <img src="/images/uploadFiles/${product.fileName }" style="max-height : 200px;" />
 				</td>
 			</tr>
 			<tr>

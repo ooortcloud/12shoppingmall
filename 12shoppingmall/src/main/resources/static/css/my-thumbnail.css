@@ -1,0 +1,15 @@
+@charset "EUC-KR";
+
+/* bootstrap의 thumbnail에서 일부 기능 overwrite 가능 */
+.my-thumbnail {
+	max-height : 200px;
+	/* javascript로 동적 변경 */
+	/* transform : translateX(-50%); */
+}
+
+.my-thumbnail:hover {
+	/* javascript로 동적 변경 */
+	/* transform : translateX(-50%) scale(1.02); */
+	transition : .5s;
+}
+

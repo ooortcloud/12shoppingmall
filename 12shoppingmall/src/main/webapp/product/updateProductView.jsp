@@ -34,6 +34,9 @@
             padding-top : 50px;
         }
     </style>
+    <!-- Spring Boot에서 link의 default root가 src/main/resources/static 인듯? -->
+    <link rel="stylesheet" href="/css/my-thumbnail.css">
+    <script src="/javascript/my-thumbnail.js">
     
 
 	<script type="text/javascript">
@@ -126,21 +129,57 @@
 			$(this).css('cursor', 'default');
 		});
 		
-		$('input:file:first').on('change', function() {
+		// 변경할 thumbnail 미리보기
+		$('input:file:first').on('change', function(event) {
 			
-			$('#thumbnail-preview-row').remove();
-			let temp = '';
-			temp += '<div id="thumbnail-preview-row" class="row">';
-			temp += '<div class="col-md-5">';
-			temp += '<p>변경 전</p>';
-			temp += '<img id="oldThumbnail" src="/images/uploadFiles/${product.fileName }" style="max-width : 400px; max-height : 300px;" align="absmiddle" />';
-			temp += '</div>';
-			temp += '<div class="col-md-5">';
-			temp += '<p>변경 후</p>';
-			temp += '<img id="newThumbnail" />';
-			temp += '</div>';
-			temp += '</div>';
-			$('#thumbnail-form-group').append(temp);
+			const file = event.target.files[0];  
+			const reader = new FileReader();
+			
+			reader.onload = function(event) {
+				
+				const oldThumbnail = new Image();
+				const newThumbnail = new Image();
+				
+				oldThumbnail.onload = function(event) {
+					
+					// console.log(event.target.width, event.target.height);
+					// console.log(this.width, this.height); 와 동일
+					reSizeImg( $('#oldThumbnail') );
+				}
+				
+				newThumbnail.onload = function(event) {
+				
+					// console.log(event.target.width, event.target.height);
+					// console.log(this.width, this.height); 와 동일
+					reSizeImg( $('#newThumbnail') );
+				}
+				
+				oldThumbnail.src = "/images/uploadFiles/${product.fileName }";
+				newThumbnail.src = event.target.result;
+				
+
+				$('#thumbnail-preview-row').remove();
+				let temp = '';
+				temp += '<div id="thumbnail-preview-row" class="row">';
+				temp += '<div class="col-md-5">';
+				temp += '<p>변경 전</p>';
+				temp += '<div style="width: 243px; overflow: hidden; border: 1px solid red;">';
+				temp += '<img id="oldThumbnail" src="/images/uploadFiles/${product.fileName }" class="my-thumbnail"/>';
+				temp += '</div>';
+				temp += '</div>';
+				temp += '<div class="col-md-5">';
+				temp += '<p>변경 후</p>';
+				temp += '<div style="width: 243px; overflow: hidden; border: 1px solid red;">';
+				temp += '<img id="newThumbnail" class="my-thumbnail"/>';
+				temp += '</div>';
+				temp += '</div>';
+				temp += '</div>';
+				$('#thumbnail-form-group').append(temp);
+				$('#newThumbnail').attr('src', event.target.result);
+			
+			}
+			
+			reader.readAsDataURL(file);
 		});
 	});  
 	</script>
@@ -190,7 +229,7 @@
 					<div>
 						<label for="thumbnail">썸네일</label>
 						<input type="file" id="thumbnail" name="thumbnail">
-						<p class="help-block">최대 10MB 이하만 가능합니다...</p>
+						<p class="help-block">thumbnail 규격 :: 243X200&nbsp;&nbsp;|&nbsp;&nbsp;최대 10MB 이하만 가능합니다...</p>
 					</div>
 				</div>
 	
