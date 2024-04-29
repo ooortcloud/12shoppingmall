@@ -37,8 +37,9 @@
     <!-- Spring Boot에서 link의 default root가 src/main/resources/static 인듯? -->
     <%--
     <link rel="stylesheet" href="/css/my-thumbnail.css">
-    <script src="/javascript/my-thumbnail.js">
      --%>
+    <script src="/javascript/my-thumbnail.js">
+    <%-- <script src="/javascript/img-upload.js"> 이거 왜 안됨 --%>
 
 	<script type="text/javascript">
   
@@ -75,8 +76,9 @@
 	$( function() {
 		  
 		// 함수 객체만 던지려면 () 생략해야 함. fncUpdateProduct() 로 작성하면 load 되자마자 함수가 실행돼버림. 
-		$('button:contains("수정")').on('click', fncUpdateProduct)
-		.on('mouseover', function() {
+		$('button:contains("수정")').on('click', function() {
+			fncUpdateProduct();			
+		}).on('mouseover', function() {
 			$(this).css('cursor', 'pointer');
 		}).on('mouseout', function() {
 			$(this).css('cursor', 'default');
@@ -182,6 +184,17 @@
 			
 			reader.readAsDataURL(file);
 		});
+
+    	$('input:file:last').on('change', function(event) {
+
+    		imgs = event.target.files;
+    		console.log(imgs);
+    		if (imgs.length >= 4) {
+    			alert('사진은 최대 3장 등록 가능합니다.');
+    			// event는 call by value라서 값 수정해봤자 무의미함.
+    			$('input:file:last').val([]);  // 빈 array로 초기화
+    		}
+    	});
 	});  
 	</script>
 </head>
