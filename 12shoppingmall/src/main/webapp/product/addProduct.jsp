@@ -91,14 +91,18 @@
 			<td>${product.inventory }</td>
 		</tr>
 		<tr>
+		<%--
 		<tr>
 			<th scope="row">상품이미지</th>
 			<td>
 				<img src="/images/uploadFiles/${product.fileName }" style="max-width : 400px; max-height : 300px;" align="absmiddle" />
 			</td>
 		</tr>
+		 --%>
 	</tbody>
 </table>
+
+	<span class="help-block">썸네일 등의 이미지는 상품 조회 page에서 확인 가능합니다.</span>
 
 	<div class="row">
 		<div class="col-sm-offset-10">

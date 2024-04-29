@@ -1,0 +1,29 @@
+frameWidth = 243px;
+frameWidthCenter = 121px;
+
+imgWidth1 = 500px;
+imgWidthCenter1 = 250px;
+// img의 중앙이 121px에 위치하도록 해야 함.
+frameWidthCenter = imgWidthCenter1 - x; :: x = imgWidthCenter1 + frameWidthCenter
+
+imgWidth1 = 477px;
+imgWidthCenter1 = 238.5px;
+// img의 중앙이 121px에 위치하도록 해야 함.
+frameWidthCenter = imgWidthCenter1 - x; :: x = imgWidthCenter1 + frameWidthCenter = 359.5
+
+imgWidth2= 750px;
+imgWidthCenter2= 375px;
+// img의 중앙이 121px에 위치하도록 해야 함.
+frameWidthCenter = imgWidthCenter2 - x; :: x = imgWidthCenter2 + frameWidthCenter
+
+imgWidth3 = 200px;
+imgWidthCenter3 = 100px;
+// img의 중앙이 121px에 위치하도록 해야 함.
+frameWidthCenter = imgWidthCenter3 + x; :: x = frameWidthCenter - imgWidthCenter3
+
+
+
+if imgWidth <= 243px
+transform : translateX(+x);
+else
+transform : translateX(-x);

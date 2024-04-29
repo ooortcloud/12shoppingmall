@@ -7,6 +7,14 @@
 
 	<!-- link의 default root가 src/main/resources/static 인듯? -->
     <link rel="stylesheet" href="/css/my-thumbnail.css">
+    
+    <style>
+    .thumbnail:hover{
+		transform : scale(1.02);
+		transition : .5s;
+    }
+    
+    </style>
 
 <script>
 
@@ -25,9 +33,9 @@
 			temp += '<div class="thumbnail" style="height = 500px;" onclick=\' location.href = "/product/getProduct/search?prodNo='+product.prodNo+'" \'>';
 			
 			if(product.fileName == null || product.fileName =='null') {
-				temp += '<img class="my-thumbnail" src="http://placeholder.com/243X200" />';
+				temp += '<img class="thumbnail" src="http://placeholder.com/243X200" />';
 			} else {
-				temp += '<img class="my-thumbnail" src="/images/uploadFiles/'+product.fileName+'" />';	
+				temp += '<img class="thumbnail" src="/images/uploadFiles/'+product.fileName+'" />';	
 			}
 			
 			temp += '<div class="caption">';

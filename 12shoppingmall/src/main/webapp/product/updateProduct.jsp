@@ -74,12 +74,14 @@
 			<!-- object scope 종류 :: pageScope < requestScope < sessionScope < applicationScope -->
 			<td>${requestScope.product.prodName }</td>
 		</tr>
+		<%--
 		<tr>
-			<th scope="row">상품이미지</th>
+			<th scope="row">썸네일</th>
 			<td>
 				<img src="/images/uploadFiles/${product.fileName }" style="max-width : 400px; max-height : 300px;" align="absmiddle" />
 			</td>
 		</tr>
+		 --%>
 		<tr>
 			<th scope="row">상품상세정보</th>
 			<td>${product.prodDetail }</td>
@@ -102,6 +104,7 @@
 		</tr>
 	</tbody>
 </table>
+	<span class="help-block">썸네일 등의 이미지는 상품 조회 page에서 확인 가능합니다.</span>
 
 	<div class="row">
 		<div class="col-sm-offset-11">

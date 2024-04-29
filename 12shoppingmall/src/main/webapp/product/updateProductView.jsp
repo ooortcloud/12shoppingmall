@@ -35,9 +35,10 @@
         }
     </style>
     <!-- Spring Boot에서 link의 default root가 src/main/resources/static 인듯? -->
+    <%--
     <link rel="stylesheet" href="/css/my-thumbnail.css">
     <script src="/javascript/my-thumbnail.js">
-    
+     --%>
 
 	<script type="text/javascript">
   
@@ -73,9 +74,9 @@
 	<script type="text/javascript">
 	$( function() {
 		  
-		$('button:contains("수정")').on('click', function() {
-			 fncUpdateProduct(); 
-		}).on('mouseover', function() {
+		// 함수 객체만 던지려면 () 생략해야 함. fncUpdateProduct() 로 작성하면 load 되자마자 함수가 실행돼버림. 
+		$('button:contains("수정")').on('click', fncUpdateProduct)
+		.on('mouseover', function() {
 			$(this).css('cursor', 'pointer');
 		}).on('mouseout', function() {
 			$(this).css('cursor', 'default');
@@ -163,15 +164,15 @@
 				temp += '<div id="thumbnail-preview-row" class="row">';
 				temp += '<div class="col-md-5">';
 				temp += '<p>변경 전</p>';
-				temp += '<div style="width: 243px; overflow: hidden; border: 1px solid red;">';
-				temp += '<img id="oldThumbnail" src="/images/uploadFiles/${product.fileName }" class="my-thumbnail"/>';
-				temp += '</div>';
+				<%-- temp += '<div style="width: 243px; overflow: hidden; border: 1px solid red;">'; --%>
+				temp += '<img id="oldThumbnail" src="/images/uploadFiles/${product.fileName }" style="width:243px;"/>';
+				<%-- temp += '</div>'; --%>
 				temp += '</div>';
 				temp += '<div class="col-md-5">';
 				temp += '<p>변경 후</p>';
-				temp += '<div style="width: 243px; overflow: hidden; border: 1px solid red;">';
-				temp += '<img id="newThumbnail" class="my-thumbnail"/>';
-				temp += '</div>';
+				<%-- temp += '<div style="width: 243px; overflow: hidden; border: 1px solid red;">'; --%>
+				temp += '<img id="newThumbnail" style="width:243px;"/>';
+				<%-- temp += '</div>'; --%>
 				temp += '</div>';
 				temp += '</div>';
 				$('#thumbnail-form-group').append(temp);
