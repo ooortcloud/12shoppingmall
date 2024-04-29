@@ -234,6 +234,12 @@
 					</div>
 				</div>
 	
+			<div class="form-group">
+					<div>
+						<label for="productImages">상품 설명 이미지들</label>
+						<input type="file" name="productImages" accept="image/*" multiple>
+					</div>
+			</div>
 			  <div class="form-group">
 			    <label for="inventory">재고 수량</label>
 			    <input type="number" class="form-control" id="inventory" name="inventory" placeholder="현재 남아 있는 재고 개수를 입력해주세요." value="${product.inventory }">

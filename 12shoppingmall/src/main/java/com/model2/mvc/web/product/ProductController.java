@@ -289,8 +289,15 @@ public class ProductController {
 	*/
 	
 	@PostMapping("/updateProduct")
-	public String updateProduct(@ModelAttribute Product product, @RequestParam(required=false) MultipartFile thumbnail, Model model, HttpServletRequest request) throws Exception {
+	public String updateProduct(@ModelAttribute Product product, @RequestParam(name="thumbnail", required=false) MultipartFile thumbnail,
+			@RequestParam(name="productImages",required=false) MultipartFile[] images, Model model, HttpServletRequest request) throws Exception {
 		
+		System.out.println(thumbnail.getOriginalFilename());
+		for (MultipartFile img : images) {
+			System.out.println(img.getOriginalFilename());
+		}
+			
+		/*
 		String oldFileName = service.getProduct(product.getProdNo()).getFileName();
 		/// user가 새 thumbnail을 추가했다면?
 		if( !thumbnail.isEmpty() ) {
@@ -305,6 +312,7 @@ public class ProductController {
 		StringTokenizer temp = new StringTokenizer( product.getManuDate(), "-" );  // delim 넣어줘야 split해줌
 		product.setManuDate( temp.nextToken() + temp.nextToken() + temp.nextToken() );
 		service.updateProduct(product);
+		*/
 		
 		return "forward:/product/updateProduct.jsp";
 	}
