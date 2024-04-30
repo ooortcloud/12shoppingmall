@@ -1,12 +1,16 @@
 package com.model2.mvc.service.product.impl;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
@@ -84,6 +88,29 @@ public class ProductServiceImpl implements ProductService {
 		} else {
 			
 			return null;
+		}
+	}
+	
+	public void saveImg(MultipartFile img, String imagePath, Product product) throws Exception {
+		
+		System.out.println("getOriginalFilename() :: " + img.getOriginalFilename());
+		
+		String extention = "." + img.getOriginalFilename().split("\\.")[1];  // 확장자 :: '.' 은 정규표현식 특수 문자이므로 일반 문자로 전환해줘야 함 
+		String fileName = new StringTokenizer( UUID.randomUUID().toString(), "-" ).nextToken() + extention;  // unique한 random name으로 저장 :: 동일 img name에 대한 중복 회피
+		File file = new File(imagePath + "/" + fileName);  // save할 file 경로 명시 (original file name까지 명시해야 함)
+		/// unique한 file name을 찾을 때까지 돌리기
+		while( file.exists() ) {
+			fileName = new StringTokenizer( UUID.randomUUID().toString(), "-" ).nextToken() + extention;
+			file = new File(imagePath + "/" + fileName);  // 기존 instance는 GC 대상의 대기를 기대
+		}
+		
+		System.out.println(fileName);
+		product.setFileName( fileName );
+		img.transferTo(file);  // 해당 경로에 img를 transfer(?)
+
+		if( !file.exists()) {
+			System.out.println("img file이 저장되지 않았습니다...");
+			return;
 		}
 	}
 }

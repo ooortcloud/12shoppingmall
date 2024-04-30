@@ -2,6 +2,8 @@ package com.model2.mvc.service.product;
 
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 
@@ -19,4 +21,7 @@ public interface ProductService {
 	public int updateProduct(Product product) throws Exception;	
 	
 	public int deleteProduct(Integer prodNo) throws Exception;
+	
+	
+	public void saveImg(MultipartFile img, String imagePath, Product product) throws Exception;
 }

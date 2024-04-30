@@ -102,30 +102,21 @@ public class ProductController {
 			if(thumbnail.getSize() > unitKB * unitKB * 10)
 				System.out.println("10MB 이하의 이미지만 가능합니다...");
 			else {
-				System.out.println("getOriginalFilename() :: " + thumbnail.getOriginalFilename());
-	
-				String extention = "." + thumbnail.getOriginalFilename().split("\\.")[1];  // 확장자 :: '.' 은 정규표현식 특수 문자이므로 일반 문자로 전환해줘야 함 
-				String fileName = new StringTokenizer( UUID.randomUUID().toString(), "-" ).nextToken() + extention;  // unique한 random name으로 저장 :: 동일 img name에 대한 중복 회피
-				File file = new File(imagePath + "/" + fileName);  // save할 file 경로 명시 (original file name까지 명시해야 함)
-				/// unique한 file name을 찾을 때까지 돌리기
-				while( file.exists() ) {
-					fileName = new StringTokenizer( UUID.randomUUID().toString(), "-" ).nextToken() + extention;
-					file = new File(imagePath + "/" + fileName);  // 기존 instance는 GC 대상의 대기를 기대
-				}
-				product.setFileName( fileName );
-				thumbnail.transferTo(file);  // 해당 경로에 img를 transfer(?)
-	
-				if( !file.exists()) {
-					System.out.println("img file이 저장되지 않았습니다...");
-					return null;
-				}
+				service.saveImg(thumbnail, imagePath, product);
 			}
 		}
 		
+		// 사용자가 넣은 상품 설명 image들을 순차적으로 저장
+		for(MultipartFile img : images) {
+			service.saveImg(img, imagePath, product);
+		}
+		
+		/*
 		StringTokenizer temp = new StringTokenizer( product.getManuDate(), "-" );  // delim 넣어줘야 split해줌
 		product.setManuDate( temp.nextToken() + temp.nextToken() + temp.nextToken() );		
 		service.addProduct(product);  // id는 sequence에 의해 auto increment
 		model.addAttribute("product", product);  // setter...
+		*/
 		
 		return "forward:/product/addProduct.jsp";
 	}
