@@ -18,27 +18,32 @@
 		<result property="regDate" column="reg_date" jdbcType="DATE" />
 		<!-- jdbcType을 NUMBER로 하면 error 난다... -->
 		<result property="inventory" column="inventory" jdbcType="NUMERIC" />
-		
 		<!-- Join table의 결과값이더라도 미리 매핑이 가능함! -->
 		<result property="proTranCode" column="tran_status_code" jdbcType="VARCHAR" />
+		
+		<result property="images.img1" column="img1" jdbcType="VARCHAR"></result>
+		<result property="images.img2" column="img2" jdbcType="VARCHAR"></result>
+		<result property="images.img3" column="img3" jdbcType="VARCHAR"></result>
 	</resultMap>
 	
 	
 	<!-- INSERT -->
 	<insert id="insertProduct" parameterType="product">
 		INSERT INTO
-		product (prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date, inventory)
+		product (prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date, inventory, img1, img2, img3)
 		<!-- NOT NULL 제약조건을 걸어두지 않은 것들은, 상이한 타입에 대한 null 입력을 위한 JDBC setNull 메소드를 적용하기 위해서 jdbcType 설정해줘야 함. -->
-		VALUES (seq_product_prod_no.nextval, #{prodName}, #{prodDetail:VARCHAR}, #{manuDate, jdbcType=VARCHAR}, #{price:INTEGER}, #{fileName:VARCHAR}, SYSDATE, #{inventory:INTEGER})
+		VALUES (seq_product_prod_no.nextval, #{prodName}, #{prodDetail:VARCHAR}, #{manuDate, jdbcType=VARCHAR}, #{price:INTEGER}, 
+			#{fileName:VARCHAR}, SYSDATE, #{inventory:INTEGER}, #{images.img1:VARCHAR}, #{images.img2:VARCHAR}, #{images.img3:VARCHAR})
 	</insert>
 
 	<!-- SELECT ONE -->
 	<!-- 상품 로직에서는 tran_code를 알 필요가 없다. transaction에게 해당 로직을 위임함. -->
 	<select id="findProduct" parameterType="integer" resultMap="productSelectMap">
 		SELECT 
-		p.*
-		FROM product p
+		p.*, i.img1, i.img2, i.img3
+		FROM product p, images i
 		WHERE  p.prod_no = #{value}
+			AND p.prod_no = i.prod_no 
 	</select>
 		
 	<!-- SELECT LIST -->
@@ -52,10 +57,13 @@
 						ROWNUM AS n, origin.*
 						FROM (
 							SELECT
-							p.*, t.tran_status_code
-							FROM product p, transaction t
+							<!-- 중복되는 column명이 있으면 '열의 정의가 애매합니다' 오류 발생 -->
+							p.*, t.tran_status_code, i.img1, i.img2, i.img3
+							FROM product p, transaction t, images i
 							<where>
+								<!-- outer join은 하나의 table만 대상으로 수행할 수 있다. -->
 								p.prod_no = t.prod_no(+)
+								AND p.prod_no = i.prod_no(+)	
 								<if test="priceMin == null and priceMax != null">AND p.price &lt;= #{priceMax}</if>
 								<if test="priceMin != null and priceMax == null">AND p.price &gt;= #{priceMin}</if>
 								<if test="priceMin != null and priceMax != null">AND p.price BETWEEN #{priceMin} AND #{priceMax}</if>
@@ -79,10 +87,12 @@
 		COUNT(*)
 		FROM (
 			SELECT
-			p.*, t.tran_status_code
-			FROM product p, transaction t
+			p.*, t.tran_status_code, i.*
+			FROM product p, transaction t, images i
 			<where>
 				p.prod_no = t.prod_no(+) 
+				AND p.prod_no = i.prod_no
+				AND t.prod_no = i.prod_no
 				<if test="priceMin == null and priceMax != null">AND p.price &lt;= #{priceMax}</if>
 				<if test="priceMin != null and priceMax == null">AND p.price &gt;= #{priceMin}</if>
 				<if test="priceMin != null and priceMax != null">AND p.price BETWEEN #{priceMin} AND #{priceMax}</if>
@@ -94,16 +104,20 @@
 	
 	<!-- UPDATE -->
 	<update id="updateProduct" parameterType="product">
-		UPDATE product
+		UPDATE product p, images i
 		<set>
-			<if test="prodDetail != null">prod_detail=#{prodDetail}, </if>
-			<if test="manuDate != null">manufacture_day=#{manuDate}, </if>
-			<if test="price != null">price=#{price}, </if>
-			<if test="fileName != null">image_file=#{fileName}, </if>
-			inventory = #{inventory},
-			prod_name=#{prodName}
+			<if test="prodDetail != null">p.prod_detail=#{prodDetail}, </if>
+			<if test="manuDate != null">p.manufacture_day=#{manuDate}, </if>
+			<if test="price != null">p.price=#{price}, </if>
+			<if test="fileName != null">p.image_file=#{fileName}, </if>
+			<if test="fileName != null">i.img1 = #{images.img1}, </if>
+			<if test="fileName != null">i.img2 = #{images.img2}, </if>
+			<if test="fileName != null">i.img3 = #{images.img3}, </if>
+			p.inventory = #{inventory},
+			p.prod_name=#{prodName}
 		</set>
-		WHERE prod_no=#{prodNo}
+		WHERE p.prod_no=#{prodNo}
+			AND p.prod_no = i.prod_no
 	</update>
 	
 	<update id="decreaseInventory" parameterType="product">

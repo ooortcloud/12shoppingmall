@@ -1,6 +1,8 @@
 package com.model2.mvc.web.product;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.UUID;
@@ -26,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.CommonUtil;
+import com.model2.mvc.service.domain.Images;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.product.ProductService;
 
@@ -107,16 +110,21 @@ public class ProductController {
 		}
 		
 		// 사용자가 넣은 상품 설명 image들을 순차적으로 저장
+		List<String> temp1 = new ArrayList<String>();
 		for(MultipartFile img : images) {
-			service.saveImg(img, imagePath, product);
+			temp1.add(service.saveImg(img, imagePath, product));
 		}
+		// builder 써도 됐지만 일단 이렇게 함
+		Images productImages = new Images();
+		productImages.setImg1(temp1.get(0));
+		productImages.setImg2(temp1.get(1));
+		productImages.setImg3(temp1.get(2));
+		product.setImages(productImages);
 		
-		/*
 		StringTokenizer temp = new StringTokenizer( product.getManuDate(), "-" );  // delim 넣어줘야 split해줌
 		product.setManuDate( temp.nextToken() + temp.nextToken() + temp.nextToken() );		
 		service.addProduct(product);  // id는 sequence에 의해 auto increment
 		model.addAttribute("product", product);  // setter...
-		*/
 		
 		return "forward:/product/addProduct.jsp";
 	}

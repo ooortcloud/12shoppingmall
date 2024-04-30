@@ -13,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.model2.mvc.common.Search;
+import com.model2.mvc.service.domain.Images;
 import com.model2.mvc.service.domain.Product;
+import com.model2.mvc.service.product.ProductAllDao;
 import com.model2.mvc.service.product.ProductDao;
 import com.model2.mvc.service.product.ProductService;
 
@@ -29,7 +31,8 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	// @Qualifier("productDaoImpl")
 	// @Qualifier("productDao")  // @Mapper interface의 구현체를 받자.
-	private ProductDao productDao;
+	// private ProductDao productDao;
+	private ProductAllDao dao;
 	
 	/*
 	public void setProductDao(ProductDao productDao) {
@@ -43,13 +46,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int addProduct(Product product) throws Exception {
 		// TODO Auto-generated method stub
-		return productDao.insertProduct(product);
+		return dao.getProductDao().insertProduct(product);
 	}
 
 	@Override
 	public Product getProduct(int prodNo) throws Exception {
 		// TODO Auto-generated method stub
-		return productDao.findProduct(prodNo);
+		return dao.getProductDao().findProduct(prodNo);
 	}
 
 	@Override
@@ -57,8 +60,8 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("list", productDao.getProductList(search));
-		result.put("totalCount", productDao.getTotalCount(search) );
+		result.put("list", dao.getProductDao().getProductList(search));
+		result.put("totalCount", dao.getProductDao().getTotalCount(search) );
 		
 		return result;
 	}
@@ -66,13 +69,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int updateProduct(Product product) throws Exception {
 		// TODO Auto-generated method stub
-		return productDao.updateProduct(product);
+		return dao.getProductDao().updateProduct(product);
 	}
 
 	@Override
 	public int deleteProduct(Integer prodNo) throws Exception {
 		// TODO Auto-generated method stub
-		return productDao.deleteProduct(prodNo);
+		return dao.getProductDao().deleteProduct(prodNo);
 	}
 	
 	// ProductRestController에서 사용
@@ -82,7 +85,7 @@ public class ProductServiceImpl implements ProductService {
 		if(option.equals("autocomplete")) {
 
 			Map<String, Object> result = new HashMap<String, Object>();
-			result.put("list", productDao.getProductListAutoComplete(search.getSearchKeyword()) );
+			result.put("list", dao.getProductDao().getProductListAutoComplete(search.getSearchKeyword()) );
 			
 			return result;
 		} else {
@@ -91,7 +94,16 @@ public class ProductServiceImpl implements ProductService {
 		}
 	}
 	
-	public void saveImg(MultipartFile img, String imagePath, Product product) throws Exception {
+	public int addProductImages(Images productImages) throws Exception {
+		
+		return dao.getImagesDao().insertImages(productImages);
+	}
+	
+	//======================================================
+	// utility
+	//======================================================
+	
+	public String saveImg(MultipartFile img, String imagePath, Product product) throws Exception {
 		
 		System.out.println("getOriginalFilename() :: " + img.getOriginalFilename());
 		
@@ -110,7 +122,9 @@ public class ProductServiceImpl implements ProductService {
 
 		if( !file.exists()) {
 			System.out.println("img file이 저장되지 않았습니다...");
-			return;
+			return null;
+		} else {
+			return fileName;
 		}
 	}
 }

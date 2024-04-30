@@ -23,5 +23,5 @@ public interface ProductService {
 	public int deleteProduct(Integer prodNo) throws Exception;
 	
 	
-	public void saveImg(MultipartFile img, String imagePath, Product product) throws Exception;
+	public String saveImg(MultipartFile img, String imagePath, Product product) throws Exception;
 }

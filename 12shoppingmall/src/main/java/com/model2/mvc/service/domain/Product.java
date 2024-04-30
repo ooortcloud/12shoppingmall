@@ -19,7 +19,8 @@ public class Product {
 	private String prodName;
 	private Integer prodNo;
 	private Date regDate;
-	private Integer inventory; 
+	private Integer inventory;  // 재고 추가 
+	private Images images;  // 다중 이미지 추가
 	
 	private String proTranCode;  // transaction table의 join 값
 
