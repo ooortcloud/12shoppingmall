@@ -46,7 +46,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int addProduct(Product product) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.getProductDao().insertProduct(product);
+		if(dao.getImagesDao().insertImages(product.getImages()) == 1)
+			return dao.getProductDao().insertProduct(product);
+		else
+			return -1;
 	}
 
 	@Override
@@ -103,7 +106,7 @@ public class ProductServiceImpl implements ProductService {
 	// utility
 	//======================================================
 	
-	public String saveImg(MultipartFile img, String imagePath, Product product) throws Exception {
+	public String generateRandomName(MultipartFile img, String imagePath) throws Exception {
 		
 		System.out.println("getOriginalFilename() :: " + img.getOriginalFilename());
 		
@@ -117,7 +120,12 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		System.out.println(fileName);
-		product.setFileName( fileName );
+		return fileName;
+	}
+	
+	public String saveImg(MultipartFile img, String imagePath, String fileName) throws Exception {
+		
+		File file = new File(imagePath + "/" + fileName);  // save할 file 경로 명시 (original file name까지 명시해야 함)
 		img.transferTo(file);  // 해당 경로에 img를 transfer(?)
 
 		if( !file.exists()) {

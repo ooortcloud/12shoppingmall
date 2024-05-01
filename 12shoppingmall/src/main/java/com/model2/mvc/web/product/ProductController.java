@@ -105,25 +105,35 @@ public class ProductController {
 			if(thumbnail.getSize() > unitKB * unitKB * 10)
 				System.out.println("10MB 이하의 이미지만 가능합니다...");
 			else {
-				service.saveImg(thumbnail, imagePath, product);
+				product.setFileName( service.generateRandomName(thumbnail, imagePath) );
 			}
 		}
 		
 		// 사용자가 넣은 상품 설명 image들을 순차적으로 저장
-		List<String> temp1 = new ArrayList<String>();
+		List<String> tempName = new ArrayList<String>();
 		for(MultipartFile img : images) {
-			temp1.add(service.saveImg(img, imagePath, product));
+			tempName.add( service.generateRandomName(img, imagePath) ); 
 		}
 		// builder 써도 됐지만 일단 이렇게 함
 		Images productImages = new Images();
-		productImages.setImg1(temp1.get(0));
-		productImages.setImg2(temp1.get(1));
-		productImages.setImg3(temp1.get(2));
+		productImages.setImg1(tempName.get(0));
+		productImages.setImg2(tempName.get(1));
+		productImages.setImg3(tempName.get(2));
 		product.setImages(productImages);
 		
 		StringTokenizer temp = new StringTokenizer( product.getManuDate(), "-" );  // delim 넣어줘야 split해줌
-		product.setManuDate( temp.nextToken() + temp.nextToken() + temp.nextToken() );		
-		service.addProduct(product);  // id는 sequence에 의해 auto increment
+		product.setManuDate( temp.nextToken() + temp.nextToken() + temp.nextToken() );	
+		
+		int result = service.addProduct(product);  // id는 sequence에 의해 auto increment
+		if(result == -1) {
+			System.out.println("DB 문제 발생. add 안됐음.");
+		} else {
+			service.saveImg(thumbnail, imagePath, product.getFileName());
+			
+			for(MultipartFile img : images)
+				service.saveImg(img, imagePath, product.getFileName()); 
+		}
+		
 		model.addAttribute("product", product);  // setter...
 		
 		return "forward:/product/addProduct.jsp";
