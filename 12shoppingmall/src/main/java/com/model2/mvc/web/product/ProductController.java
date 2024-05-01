@@ -116,6 +116,7 @@ public class ProductController {
 		}
 		// builder 써도 됐지만 일단 이렇게 함
 		Images productImages = new Images();
+		productImages.setProdNo(product.getProdNo());
 		productImages.setImg1(tempName.get(0));
 		productImages.setImg2(tempName.get(1));
 		productImages.setImg3(tempName.get(2));

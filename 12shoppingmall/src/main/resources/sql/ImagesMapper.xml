@@ -17,7 +17,7 @@
 	<insert id="insertImages" parameterType="images">
 		INSERT INTO
 		images (id, prod_no, img1, img2, img3)
-		VALUES (seq_images_id_no, #{prodNo}, #{img1}, #{img2}, #{img3})
+		VALUES (seq_images_id_no.nextval, #{prodNo}, #{img1:VARCHAR}, #{img2:VARCHAR}, #{img3:VARCHAR})
 	</insert> 
 	
 	<select id="getImages" parameterType="integer" resultMap="imageSelectMap">

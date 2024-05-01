@@ -44,6 +44,18 @@
 		WHERE  p.prod_no = #{value}
 			AND p.prod_no = i.prod_no 
 	</select>
+	
+	<select id="findLatestProdId" resultType="integer">
+		SELECT
+		origin.*
+		FROM (
+			SELECT
+			prod_no
+			FROM product
+			ORDER BY prod_no DESC 
+		) origin
+		WHERE ROWNUM = 1
+	</select>
 		
 	<!-- SELECT LIST -->
 	<!-- sql 태그는 mybatis에 종속적이므로, 코드 중복 발생하더라도 풀어헤쳐서 작성하는 것이 더 좋다고 판단함. -->

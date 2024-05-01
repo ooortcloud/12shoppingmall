@@ -46,8 +46,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int addProduct(Product product) throws Exception {
 		// TODO Auto-generated method stub
-		if(dao.getImagesDao().insertImages(product.getImages()) == 1)
-			return dao.getProductDao().insertProduct(product);
+		
+		if(dao.getProductDao().insertProduct(product) == 1) {
+			
+			Images temp = product.getImages();
+			temp.setProdNo( dao.getProductDao().findLatestProdId() );
+			return dao.getImagesDao().insertImages( product.getImages() );
+		}
 		else
 			return -1;
 	}

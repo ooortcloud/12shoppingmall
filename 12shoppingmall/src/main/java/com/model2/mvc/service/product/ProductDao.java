@@ -14,6 +14,8 @@ public interface ProductDao {
 	
 	public Product findProduct(int prodNo) throws Exception;
 	
+	public int findLatestProdId() throws Exception;
+	
 	public List<Product> getProductList(Search search) throws Exception;
 	
 	public List<Product> getProductListAutoComplete(String prodName) throws Exception;
