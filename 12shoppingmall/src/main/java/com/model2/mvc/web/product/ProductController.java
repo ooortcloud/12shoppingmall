@@ -158,74 +158,12 @@ public class ProductController {
 		System.out.println("client에게 cookie(history, 상품명.상품번호)를 제공합니다.");
 		
 		/// history 등록 로직
-		Cookie[] cookies = request.getCookies();
-		boolean flag = true;  // 중복 체크
-		boolean first = true; // 중복 체크 로직에서 첫번째 경우 예외 처리
-		String historyCookie = "";  // historyNo 조회 도중 history가 지나가면 안되니까 데이터 따로 빼둠
-		String historyNo = "";  // 상품ID만 기록
-		String histories = "";  // 상품ID와 상품명 함께 기록  << 상품명이 동일한 상품에 대한 중복 검사를 하기 위함
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("historyNo")) {
-				first=false;
-				String[] searchArr = cookie.getValue().split("-");
-				// prodNo 중복 검사  -- 같은 이름이어도 prodNo가 다르면 서로 다르니까 번호로 비교
-				for (String searchItemNo : searchArr) {
-					if(searchItemNo.equals(String.valueOf(prodNo))) {
-						flag=false;
-						break;
-					}
-				}
-				// 중복 없을 경우 history에 추가
-				if(flag) {
-					// 일부 특수 문자만 쿠키에 사용할 수 있습니다. 예를 들면 하이픈(-), 언더스코어(_), 마침표(.) 등이 있습니다.
-					// 상품명.상품번호-상품명.상품번호 ~~~
-					historyNo = cookie.getValue()+"-" + String.valueOf(prodNo);
-					Cookie historyNoCookie = new Cookie("historyNo", historyNo);
-					historyNoCookie.setPath("/");
-					response.addCookie( historyNoCookie );
-					System.out.println("저장된 historyNo : "+historyNo);
-				} else {
-					System.out.println("이미 검색한 상품입니다.");
-				}
-			} else if (cookie.getName().equals("histories")) {
-				historyCookie = cookie.getValue();
-				System.out.println("historyCookie = " + historyCookie);
-			}
-		}
-		
-		// cookie에 공백을 넣을 수 없으므로, 공백을 필터링해서 작업하기
-		String[] temp = product.getProdName().trim().split(" ");
-		String prodName = "";
-		for (String t : temp)
-			prodName += (t + "_");
-		if(flag & !first) {  // 반복문 밖에서 중복이 아니면 추가해줌
-			String[] searchArr = historyCookie.split("-");
-			// 일부 특수 문자만 쿠키에 사용할 수 있습니다. 예를 들면 하이픈(-), 언더스코어(_), 마침표(.) 등이 있습니다.
-			histories = historyCookie+"-" + prodName+ "."+ String.valueOf(prodNo);
-			Cookie historiesCookie = new Cookie("histories", histories);
-			historiesCookie.setPath("/");
-			response.addCookie( historiesCookie );
-			System.out.println("저장된 histories : "+ histories );
-		}
-		
-		if(first) {  // 최초 조회면 쿠키를 만듦
-			// addCookie를 통해 생성한 기본 cookie 수명 = -1  :: client가 browser 종료 시 자동 삭제
-			histories = prodName + "."+ String.valueOf(prodNo);
-			historyNo = String.valueOf(prodNo);
-			Cookie historiesCookie =  new Cookie("histories", histories);
-			historiesCookie.setPath("/");
-			response.addCookie( historiesCookie );					
-			Cookie historyNoCookie = new Cookie("historyNo", historyNo);
-			historyNoCookie.setPath("/");
-			response.addCookie( historyNoCookie );	
-			System.out.println("history 쿠키가 없어서 새로 생성했습니다.");
-		}
-
+		service.addHistory(request, response, product);
 		
 		System.out.println(product.getFileName());
 		/// user는 상품 검색으로 navigation 처리
 		if(menu.equals("search")) {
-		return "forward:/product/getProduct.jsp?menu=search";
+			return "forward:/product/getProduct.jsp?menu=search";
 		} 
 		/// admin은 상품 수정으로 navigation
 		else {  
