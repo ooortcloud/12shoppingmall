@@ -130,9 +130,9 @@ public class ProductController {
 			System.out.println("DB 문제 발생. add 안됐음.");
 		} else {
 			service.saveImg(thumbnail, imagePath, product.getFileName());
-			
-			for(MultipartFile img : images)
-				service.saveImg(img, imagePath, product.getFileName()); 
+			service.saveImg(images[0], imagePath, product.getImages().getImg1());
+			service.saveImg(images[1], imagePath, product.getImages().getImg2());
+			service.saveImg(images[2], imagePath, product.getImages().getImg3());
 		}
 		
 		model.addAttribute("product", product);  // setter...
