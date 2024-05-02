@@ -149,7 +149,7 @@ $( function() {
 		  </div>
 		  <div class="form-group">
 		    <label for="thumbnail">썸네일</label>
-		    <input type="file" id="thumbnail" name="thumbnail">
+		    <input type="file" id="thumbnail" name="thumbnail" accept="image/*">
 		    <p class="help-block">최대 5MB 이하만 가능합니다...</p>
 		  </div>
 		<div class="form-group">

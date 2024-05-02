@@ -72,31 +72,26 @@
 		document.detailForm.submit();
 	}
 	
-	function updateImg(event, num) {
+	function updateImg(event) {
 
 		const file = event.target.files[0];
 		const reader = new FileReader();
 		
-		const workElement = $(event.target).parent();
+		const eventElement = $(event.target);
 		
 		reader.onload = function(event) {
 			
-			workElement.empty();
-			let temp = '';
-			switch(num) {
-				case '1':
-					temp += '<img src="/images/uploadFiles/${product.images.img1 }" style="max-height : 200px;" />';					
-					break;
-				case '2':
-					temp += '<img src="/images/uploadFiles/${product.images.img2 }" style="max-height : 200px;" />';					
-					break;
-				case '3':
-					temp += '<img src="/images/uploadFiles/${product.images.img3 }" style="max-height : 200px;" />';					
-					break;	
-			}
-			temp += '<input type="file" name="updateImg'+num+'" />';
+			const workElement = eventElement.parent().find('img');
+			workElement.html('<img style="max-height : 200px;" />');
+			workElement.attr('src', event.target.result);
+			console.log(workElement.parent().html());
+			/*
+			let temp = '';		
+			temp += '<img style="max-height : 200px;" />';
+			temp += '<input type="file" name="imgs" accept="image/*" />';
 			workElement.append(temp);
 			workElement.find('img').attr('src', event.target.result);
+			*/
 		}
 		
 		reader.readAsDataURL(file);
@@ -214,9 +209,9 @@
 			reader.readAsDataURL(file);
 		});
 
-		$('input[name="updateImg1"]').on("change", (event) => updateImg(event, '1') );
-		$('input[name="updateImg2"]').on("change", (event) => updateImg(event, '2') );
-		$('input[name="updateImg3"]').on("change", (event) => updateImg(event, '3') );
+		$('input[name="imgs"]:first').on("change", (event) => updateImg(event) );
+		$('input[name="imgs"]:eq(1)').on("change", (event) => updateImg(event) );
+		$('input[name="imgs"]:last').on("change", (event) => updateImg(event) );
 	});  
 	</script>
 </head>
@@ -264,27 +259,28 @@
 				<div id="thumbnail-form-group" class="form-group">
 					<div>
 						<label for="thumbnail">썸네일</label>
-						<input type="file" id="thumbnail" name="thumbnail">
+						<input type="file" id="thumbnail" name="thumbnail" accept="image/*">
 						<p class="help-block">thumbnail 규격 :: 243X200&nbsp;&nbsp;|&nbsp;&nbsp;최대 10MB 이하만 가능합니다...</p>
 					</div>
 				</div>
 	
 			<div class="form-group">
-					<div>
-						<label >상품 설명 이미지들</label>
-						<div style="border:1px solid red" id="image1">
-							<img src="/images/uploadFiles/${product.images.img1 }" style="max-height : 200px;" />
-							<input type="file" name="updateImg1" />
-						</div><br/>
-						<div style="border:1px solid red" id="image2">
-							<img src="/images/uploadFiles/${product.images.img2 }" style="max-height : 200px;" />
-							<input type="file" name="updateImg2" />
-						</div><br/>
-						<div style="border:1px solid red" id="image3">
-							<img src="/images/uploadFiles/${product.images.img3 }" style="max-height : 200px;" />
-							<input type="file" name="updateImg3" />
-						</div>
-					</div>
+
+				<label >상품 설명 이미지들</label>
+				<div style="border:1px solid red" id="image1">
+					<img src="/images/uploadFiles/${product.images.img1 }" style="max-height : 200px;" />
+					<input type="file" name="imgs" />
+				</div><br/>
+				<div style="border:1px solid red" id="image2">
+					<img src="/images/uploadFiles/${product.images.img2 }" style="max-height : 200px;" />
+					<input type="file" name="imgs" />
+				</div><br/>
+				<div style="border:1px solid red" id="image3">
+					<img src="/images/uploadFiles/${product.images.img3 }" style="max-height : 200px;" />
+					<input type="file" name="imgs" />
+				</div>
+
+
 			</div>
 			  <div class="form-group">
 			    <label for="inventory">재고 수량</label>
@@ -300,7 +296,6 @@
 				<button type="button" class="btn btn-default">취소</button>
 			</div>
 		</div>
-	
 	</form>
 </div>
 </body>

@@ -2,6 +2,7 @@ package com.model2.mvc.web.product;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -241,8 +242,20 @@ public class ProductController {
 	
 	@PostMapping("/updateProduct")
 	public String updateProduct(@ModelAttribute Product product, @RequestParam(name="thumbnail", required=false) MultipartFile thumbnail,
-			@RequestParam(name="productImages",required=false) MultipartFile[] images, Model model, HttpServletRequest request) throws Exception {
+			@RequestParam(name="imgs",required=false) MultipartFile[] images, Model model, HttpServletRequest request) throws Exception {
 
+		System.out.println("thumbnail" + thumbnail.getOriginalFilename() + ", " + thumbnail.getSize());
+		System.out.println("images" + images[0].getOriginalFilename() + ", " + images[0].getSize());
+		System.out.println("images" + images[1].getOriginalFilename() + ", " + images[1].getSize());
+		System.out.println("images" + images[2].getOriginalFilename() + ", " + images[2].getSize());
+		
+		/*
+		for(String temp : request.getParameterValues("multiImages")) {
+			System.out.println(temp);
+		}
+		*/
+		
+		/*
 		String oldFileName = service.getProduct(product.getProdNo()).getFileName();
 		service.updateImg(thumbnail, oldFileName, request);
 		product.setFileName(oldFileName);  // img 변경사항이 없으면 기존 것을 그대로 채용, img 있어도 기존 이름으로 변경해야 함.
@@ -252,7 +265,7 @@ public class ProductController {
 		StringTokenizer temp = new StringTokenizer( product.getManuDate(), "-" );  // delim 넣어줘야 split해줌
 		product.setManuDate( temp.nextToken() + temp.nextToken() + temp.nextToken() );
 		service.updateProduct(product);
-
+		*/
 		
 		return "forward:/product/updateProduct.jsp";
 	}
