@@ -38,7 +38,8 @@
     <%--
     <link rel="stylesheet" href="/css/my-thumbnail.css">
      --%>
-    <script src="/javascript/my-thumbnail.js">
+     <!-- script  -->
+    <script src="/javascript/my-thumbnail.js"></script>
     <%-- <script src="/javascript/img-upload.js"> 이거 왜 안됨 --%>
 
 	<script type="text/javascript">
@@ -70,15 +71,44 @@
 		document.detailForm.action='/product/updateProduct';
 		document.detailForm.submit();
 	}
-	</script>
 	
-	<script type="text/javascript">
+	function updateImg(event, num) {
+
+		const file = event.target.files[0];
+		const reader = new FileReader();
+		
+		const workElement = $(event.target).parent();
+		
+		reader.onload = function(event) {
+			
+			workElement.empty();
+			let temp = '';
+			switch(num) {
+				case '1':
+					temp += '<img src="/images/uploadFiles/${product.images.img1 }" style="max-height : 200px;" />';					
+					break;
+				case '2':
+					temp += '<img src="/images/uploadFiles/${product.images.img2 }" style="max-height : 200px;" />';					
+					break;
+				case '3':
+					temp += '<img src="/images/uploadFiles/${product.images.img3 }" style="max-height : 200px;" />';					
+					break;	
+			}
+			temp += '<input type="file" name="updateImg'+num+'" />';
+			workElement.append(temp);
+			workElement.find('img').attr('src', event.target.result);
+		}
+		
+		reader.readAsDataURL(file);
+	}
+	
+	/////////////////////////////// selector ///////////////////////////////
+	
 	$( function() {
 		  
 		// 함수 객체만 던지려면 () 생략해야 함. fncUpdateProduct() 로 작성하면 load 되자마자 함수가 실행돼버림. 
-		$('button:contains("수정")').on('click', function() {
-			fncUpdateProduct();			
-		}).on('mouseover', function() {
+		$('button:contains("수정")').on('click', () => fncUpdateProduct() )
+		.on('mouseover', function() {
 			$(this).css('cursor', 'pointer');
 		}).on('mouseout', function() {
 			$(this).css('cursor', 'default');
@@ -105,8 +135,7 @@
 						fileName : $('input:hidden[name="oldFileName"]').val()
 					}),
 					success : function(responseBody, httpStatus){
-						
-						console.log("flag");
+
 						console.log(responseBody);
 						if(responseBody.msg != "ok") {
 							alert('상품 제거에 실패...');  
@@ -185,16 +214,9 @@
 			reader.readAsDataURL(file);
 		});
 
-    	$('input:file:last').on('change', function(event) {
-
-    		imgs = event.target.files;
-    		console.log(imgs);
-    		if (imgs.length >= 4) {
-    			alert('사진은 최대 3장 등록 가능합니다.');
-    			// event는 call by value라서 값 수정해봤자 무의미함.
-    			$('input:file:last').val([]);  // 빈 array로 초기화
-    		}
-    	});
+		$('input[name="updateImg1"]').on("change", (event) => updateImg(event, '1') );
+		$('input[name="updateImg2"]').on("change", (event) => updateImg(event, '2') );
+		$('input[name="updateImg3"]').on("change", (event) => updateImg(event, '3') );
 	});  
 	</script>
 </head>
@@ -249,8 +271,19 @@
 	
 			<div class="form-group">
 					<div>
-						<label for="productImages">상품 설명 이미지들</label>
-						<input type="file" name="productImages" accept="image/*" multiple>
+						<label >상품 설명 이미지들</label>
+						<div style="border:1px solid red" id="image1">
+							<img src="/images/uploadFiles/${product.images.img1 }" style="max-height : 200px;" />
+							<input type="file" name="updateImg1" />
+						</div><br/>
+						<div style="border:1px solid red" id="image2">
+							<img src="/images/uploadFiles/${product.images.img2 }" style="max-height : 200px;" />
+							<input type="file" name="updateImg2" />
+						</div><br/>
+						<div style="border:1px solid red" id="image3">
+							<img src="/images/uploadFiles/${product.images.img3 }" style="max-height : 200px;" />
+							<input type="file" name="updateImg3" />
+						</div>
 					</div>
 			</div>
 			  <div class="form-group">

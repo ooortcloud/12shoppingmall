@@ -34,4 +34,6 @@ public interface ProductService {
 	public String saveImg(MultipartFile img, String imagePath, String fileName) throws Exception;
 	
 	public void addHistory(HttpServletRequest request, HttpServletResponse response, Product product);
+	
+	public void updateImg(MultipartFile img, String oldFileName, HttpServletRequest request) throws Exception;
 }

@@ -195,9 +195,15 @@ console.log("document.referrer = " + document.referrer);
 				<!-- 썸네일은 list에서만 보이도록 함. -->
 				<th scope="row">상품 이미지</th>
 				<td>
-					<img src="/images/uploadFiles/${product.images.img1 }" style="max-height : 200px;" />
-					<img src="/images/uploadFiles/${product.images.img2 }" style="max-height : 200px;" />
-					<img src="/images/uploadFiles/${product.images.img3 }" style="max-height : 200px;" />		
+					<div style="border:1px solid red">
+						<img src="/images/uploadFiles/${product.images.img1 }" style="max-height : 200px;" />
+					</div><br/>
+					<div style="border:1px solid red">
+						<img src="/images/uploadFiles/${product.images.img2 }" style="max-height : 200px;" />
+					</div><br/>
+					<div style="border:1px solid red">
+						<img src="/images/uploadFiles/${product.images.img3 }" style="max-height : 200px;" />
+					</div>		
 				</td>
 			</tr>
 			<tr>

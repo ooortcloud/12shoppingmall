@@ -212,4 +212,15 @@ public class ProductServiceImpl implements ProductService {
 			System.out.println("history 쿠키가 없어서 새로 생성했습니다.");
 		}
 	}
+
+	public void updateImg(MultipartFile img, String oldFileName, HttpServletRequest request) throws Exception {
+		
+		/// user가 img를 변경했다면?
+		if( !img.isEmpty() ) {
+			
+			File file = new File( request.getServletContext().getRealPath("/images/uploadFiles") + "/" + oldFileName );
+			// file.delete();  
+			img.transferTo(file);  // 기존 file이 존재하면, 그것을 제거한 후 write
+		} 
+	}
 }

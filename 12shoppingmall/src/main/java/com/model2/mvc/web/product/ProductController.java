@@ -244,15 +244,10 @@ public class ProductController {
 			@RequestParam(name="productImages",required=false) MultipartFile[] images, Model model, HttpServletRequest request) throws Exception {
 
 		String oldFileName = service.getProduct(product.getProdNo()).getFileName();
-		/// user가 새 thumbnail을 추가했다면?
-		if( !thumbnail.isEmpty() ) {
-			
-			File file = new File( request.getServletContext().getRealPath("/images/uploadFiles") + "/" + oldFileName );
-			// file.delete();  
-			thumbnail.transferTo(file);  // 기존 file이 존재하면, 그것을 제거한 후 write
-		} 
-		/// thunbnail 변경사항이 없으면 기존 것을 그대로 채용, thumbnail 있어도 기존 이름으로 변경해야 함.
-		product.setFileName(oldFileName);
+		service.updateImg(thumbnail, oldFileName, request);
+		product.setFileName(oldFileName);  // img 변경사항이 없으면 기존 것을 그대로 채용, img 있어도 기존 이름으로 변경해야 함.
+		
+		
 
 		StringTokenizer temp = new StringTokenizer( product.getManuDate(), "-" );  // delim 넣어줘야 split해줌
 		product.setManuDate( temp.nextToken() + temp.nextToken() + temp.nextToken() );
