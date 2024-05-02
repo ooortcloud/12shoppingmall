@@ -98,12 +98,11 @@
 		COUNT(*)
 		FROM (
 			SELECT
-			p.*, t.tran_status_code, i.*
+			p.prod_no
 			FROM product p, transaction t, images i
 			<where>
 				p.prod_no = t.prod_no(+) 
-				AND p.prod_no = i.prod_no
-				AND t.prod_no = i.prod_no
+				AND p.prod_no = i.prod_no(+)
 				<if test="priceMin == null and priceMax != null">AND p.price &lt;= #{priceMax}</if>
 				<if test="priceMin != null and priceMax == null">AND p.price &gt;= #{priceMin}</if>
 				<if test="priceMin != null and priceMax != null">AND p.price BETWEEN #{priceMin} AND #{priceMax}</if>
