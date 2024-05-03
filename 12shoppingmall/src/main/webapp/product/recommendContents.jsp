@@ -45,7 +45,7 @@
 	            </div>
 	          </div>
 	        </div>
-	        <div class="item" onclick=' location.href = "/product/getProduct/search?prodNo=10121" '>
+	        <div class="item" onclick=' location.href = "/product/getProduct/search?prodNo=10051" '>
 	          <img class="second-slide" src="/images/bigThumbnails/galaxy_book_4_big_ thumbnail.webp" alt="Second slide" >
 	          <div class="container">
 	            <div class="carousel-caption">

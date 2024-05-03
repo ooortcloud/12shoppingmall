@@ -132,14 +132,14 @@ public class ProductServiceImpl implements ProductService {
 		return fileName;
 	}
 	 
-	public File saveImg(MultipartFile img, String newFileName, String imagePath) throws Exception {
+	public File saveImg(MultipartFile img, String imagePath, String newFileName) throws Exception {
 		
 		// real path를 가져온다.
 		// Spring boot 변경 후 static에 접근하기 위해서는 webapp에서 벗어나야 한다.  << 개발 server에서만 유효할 수 있으니 주의
 		// save할 file 경로 명시 (original file name까지 명시해야 함)
 		File file = new File( imagePath + newFileName );
 		
-		System.out.println();
+		System.out.println( imagePath + newFileName);
 		img.transferTo(file);  // 해당 경로에 img를 transfer(?)
 
 		if( !file.exists()) {
