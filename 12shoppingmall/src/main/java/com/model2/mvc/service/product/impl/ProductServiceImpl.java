@@ -131,17 +131,22 @@ public class ProductServiceImpl implements ProductService {
 		System.out.println(fileName);
 		return fileName;
 	}
-	
-	public String saveImg(MultipartFile img, String imagePath, String fileName) throws Exception {
+	 
+	public File saveImg(MultipartFile img, String newFileName, String imagePath) throws Exception {
 		
-		File file = new File(imagePath + "/" + fileName);  // save할 file 경로 명시 (original file name까지 명시해야 함)
+		// real path를 가져온다.
+		// Spring boot 변경 후 static에 접근하기 위해서는 webapp에서 벗어나야 한다.  << 개발 server에서만 유효할 수 있으니 주의
+		// save할 file 경로 명시 (original file name까지 명시해야 함)
+		File file = new File( imagePath + newFileName );
+		
+		System.out.println();
 		img.transferTo(file);  // 해당 경로에 img를 transfer(?)
 
 		if( !file.exists()) {
 			System.out.println("img file이 저장되지 않았습니다...");
 			return null;
 		} else {
-			return fileName;
+			return file;
 		}
 	}
 	
@@ -212,15 +217,91 @@ public class ProductServiceImpl implements ProductService {
 			System.out.println("history 쿠키가 없어서 새로 생성했습니다.");
 		}
 	}
+	
+	public void updateImg(Product product, MultipartFile thumbnail, MultipartFile[] images, HttpServletRequest request) throws Exception {
 
-	public void updateImg(MultipartFile img, String oldFileName, HttpServletRequest request) throws Exception {
+		String imagePath = request.getServletContext().getRealPath("/") + "../resources/static/images/uploadFiles/";
+		updateIfThumbnailRegistered(thumbnail, product, imagePath);
+		
+		Images parameter = product.getImages();
+		String oldFileName = "";
+		if( !images[0].isEmpty() ) {
+			
+			oldFileName = this.getProduct(product.getProdNo()).getImages().getImg1();
+			String oldRandomName = oldFileName.split("\\.")[0];
+			String extention = "." + images[0].getOriginalFilename().split("\\.")[1];
+			String newFileName = oldRandomName + extention;
+			System.out.println("old : " + oldFileName);
+			System.out.println("new : " + newFileName);
+			
+			parameter.setImg1(newFileName);
+			parameter.setProdNo(product.getProdNo());
+			int dbResult = dao.getImagesDao().updateImages(parameter);
+			
+			if(dbResult == 1) {
+				boolean result = new File(imagePath + oldFileName).delete();
+				System.out.println(result); 
+				saveImg(images[0], newFileName, imagePath);	
+			}
+		}
+		
+		if( !images[1].isEmpty() ) {
+			
+			oldFileName = this.getProduct(product.getProdNo()).getImages().getImg2();
+			String oldRandomName = oldFileName.split("\\.")[0];
+			String extention = "." + images[1].getOriginalFilename().split("\\.")[1];
+			String newFileName = oldRandomName + extention;
+			System.out.println("old : " + oldFileName);
+			System.out.println("new : " + newFileName);
+			
+			parameter.setImg2(newFileName);
+			parameter.setProdNo(product.getProdNo());
+			int dbResult = dao.getImagesDao().updateImages(parameter);
+			
+			if(dbResult == 1) {
+				boolean result = new File(imagePath + oldFileName).delete();
+				System.out.println(result); 
+				saveImg(images[1], newFileName, imagePath);	
+			}
+		}
+		
+		if( !images[2].isEmpty() ) {
+			
+			oldFileName = this.getProduct(product.getProdNo()).getImages().getImg3();
+			String oldRandomName = oldFileName.split("\\.")[0];
+			String extention = "." + images[2].getOriginalFilename().split("\\.")[1];
+			String newFileName = oldRandomName + extention;
+			System.out.println("old : " + oldFileName);
+			System.out.println("new : " + newFileName);
+			
+			parameter.setImg3(newFileName);
+			parameter.setProdNo(product.getProdNo());
+			int dbResult = dao.getImagesDao().updateImages(parameter);
+			
+			if(dbResult == 1) {
+				boolean result = new File(imagePath + oldFileName).delete();
+				System.out.println(result); 
+				saveImg(images[2], newFileName, imagePath);	
+			}
+		}
+		
+		
+	}
+
+	private void updateIfThumbnailRegistered(MultipartFile img, Product product, String imagePath) throws Exception {
 		
 		/// user가 img를 변경했다면?
 		if( !img.isEmpty() ) {
 			
-			File file = new File( request.getServletContext().getRealPath("/images/uploadFiles") + "/" + oldFileName );
-			// file.delete();  
-			img.transferTo(file);  // 기존 file이 존재하면, 그것을 제거한 후 write
-		} 
+			String temp = this.getProduct(product.getProdNo()).getFileName().split("\\.")[0];
+			String extention = "." + img.getOriginalFilename().split("\\.")[1];  // 확장자 :: '.' 은 정규표현식 특수 문자이므로 일반 문자로 전환해줘야 함
+			String oldFileName = temp + extention;
+			
+			new File(imagePath + product.getFileName()).delete();
+			this.saveImg(img, oldFileName, imagePath);
+			product.setFileName(oldFileName);
+		}
 	}
+
+
 }

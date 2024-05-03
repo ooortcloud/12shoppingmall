@@ -26,4 +26,14 @@
 		FROM images
 		WHERE prod_no = #{value}
 	</select>
+	
+	<update id="updateImages" parameterType="images">
+		UPDATE images
+		<set>
+			<if test="img1 != null and img1 != ''">img1=#{img1}</if>
+			<if test="img2 != null and img2 != ''">img2=#{img2}</if>
+			<if test="img3 != null and img3 != ''">img3=#{img3}</if> 
+		</set>
+		WHERE prod_no = #{prodNo}
+	</update>
 </mapper>

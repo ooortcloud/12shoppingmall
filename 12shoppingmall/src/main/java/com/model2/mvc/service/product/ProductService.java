@@ -1,5 +1,6 @@
 package com.model2.mvc.service.product;
 
+import java.io.File;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,9 +32,9 @@ public interface ProductService {
 	
 	public String generateRandomName(MultipartFile img, String imagePath) throws Exception;
 	
-	public String saveImg(MultipartFile img, String imagePath, String fileName) throws Exception;
+	public File saveImg(MultipartFile img, String newFileName, String imagePath) throws Exception;
 	
 	public void addHistory(HttpServletRequest request, HttpServletResponse response, Product product);
 	
-	public void updateImg(MultipartFile img, String oldFileName, HttpServletRequest request) throws Exception;
+	public void updateImg(Product product, MultipartFile thumbnail, MultipartFile[] images, HttpServletRequest request) throws Exception;
 }

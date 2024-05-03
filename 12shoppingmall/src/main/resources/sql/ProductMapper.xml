@@ -114,20 +114,16 @@
 	
 	<!-- UPDATE -->
 	<update id="updateProduct" parameterType="product">
-		UPDATE product p, images i
+		UPDATE product
 		<set>
-			<if test="prodDetail != null">p.prod_detail=#{prodDetail}, </if>
-			<if test="manuDate != null">p.manufacture_day=#{manuDate}, </if>
-			<if test="price != null">p.price=#{price}, </if>
-			<if test="fileName != null">p.image_file=#{fileName}, </if>
-			<if test="fileName != null">i.img1 = #{images.img1}, </if>
-			<if test="fileName != null">i.img2 = #{images.img2}, </if>
-			<if test="fileName != null">i.img3 = #{images.img3}, </if>
-			p.inventory = #{inventory},
-			p.prod_name=#{prodName}
+			<if test="prodDetail != null">prod_detail=#{prodDetail}, </if>
+			<if test="manuDate != null">manufacture_day=#{manuDate}, </if>
+			<if test="price != null">price=#{price}, </if>
+			<if test="fileName != null">image_file=#{fileName}, </if>
+			inventory = #{inventory},
+			prod_name=#{prodName}
 		</set>
-		WHERE p.prod_no=#{prodNo}
-			AND p.prod_no = i.prod_no
+		WHERE prod_no=#{prodNo}
 	</update>
 	
 	<update id="decreaseInventory" parameterType="product">

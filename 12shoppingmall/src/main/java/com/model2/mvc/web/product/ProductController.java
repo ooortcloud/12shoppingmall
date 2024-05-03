@@ -90,12 +90,9 @@ public class ProductController {
 	public String addProduct(@ModelAttribute Product product, @RequestParam(name="thumbnail", required=false) MultipartFile thumbnail,
 			@RequestParam(name="productImages",required=false) MultipartFile[] images, Model model, HttpServletRequest request) throws Exception {
 
-		// real path를 가져온다.
-		// Spring boot 변경 후 static에 접근하기 위해서는 webapp에서 벗어나야 한다.  << 개발 server에서만 유효할 수 있으니 주의
-		String imagePath = request.getServletContext().getRealPath("/");
-		imagePath = imagePath + "../resources/static/images/uploadFiles";
-		System.out.println("path :: " + imagePath);
-
+		
+		String imagePath = request.getServletContext().getRealPath("/") + "../resources/static/images/uploadFiles/";
+		
 		/// 사용자가 image를 넣지 않는 경우,  예외 file로 대체하여 저장
 		if(thumbnail.isEmpty())  {
 			product.setFileName(null);
@@ -249,24 +246,21 @@ public class ProductController {
 		System.out.println("images" + images[1].getOriginalFilename() + ", " + images[1].getSize());
 		System.out.println("images" + images[2].getOriginalFilename() + ", " + images[2].getSize());
 		
-		/*
-		for(String temp : request.getParameterValues("multiImages")) {
-			System.out.println(temp);
-		}
-		*/
+		Images t = new Images();
+		t.setImg1(images[0].getOriginalFilename());
+		t.setImg2(images[1].getOriginalFilename());
+		t.setImg3(images[2].getOriginalFilename());
+		product.setImages(t);
 		
-		/*
-		String oldFileName = service.getProduct(product.getProdNo()).getFileName();
-		service.updateImg(thumbnail, oldFileName, request);
-		product.setFileName(oldFileName);  // img 변경사항이 없으면 기존 것을 그대로 채용, img 있어도 기존 이름으로 변경해야 함.
-		
-		
-
 		StringTokenizer temp = new StringTokenizer( product.getManuDate(), "-" );  // delim 넣어줘야 split해줌
 		product.setManuDate( temp.nextToken() + temp.nextToken() + temp.nextToken() );
-		service.updateProduct(product);
-		*/
+		int result = service.updateProduct(product);
+		if(result == 1) {
+			service.updateImg(product, thumbnail, images, request);
+		}
 		
+		System.out.println("flag : " + product.getImages());
+	
 		return "forward:/product/updateProduct.jsp";
 	}
 }
