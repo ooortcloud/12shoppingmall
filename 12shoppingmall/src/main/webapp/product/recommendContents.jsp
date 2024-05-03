@@ -32,7 +32,7 @@
 	        <!-- <li data-target="#myCarousel" data-slide-to="2"></li>  -->
 	      </ol>
 	      <div class="carousel-inner" role="listbox">
-	        <div class="item active" onclick=' location.href = "/product/getProduct/search?prodNo=10120" '>
+	        <div class="item active" onclick=' location.href = "/product/getProduct/search?prodNo=10052" '>
 	        <!-- 어차피 마케팅 문구 직접 달아야 하니까 static하게 만드는 것이 최선이다 vs 유지보수를 최우선적으로 알고리즘을 활용하여 자동으로 load되도록 만들어야 한다 -->
 	          <img class="first-slide" src="/images/bigThumbnails/shampoo_big_thumbnail.webp" alt="First slide" >
 	          <div class="container">
