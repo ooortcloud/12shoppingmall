@@ -32,7 +32,7 @@ public interface ProductService {
 	
 	public String generateRandomName(MultipartFile img, String imagePath) throws Exception;
 	
-	public File saveImg(MultipartFile img, String imagePath , String newFileName) throws Exception;
+	public File saveImg(MultipartFile img,  String newFileName, String imagePath) throws Exception;
 	
 	public void addHistory(HttpServletRequest request, HttpServletResponse response, Product product);
 	
