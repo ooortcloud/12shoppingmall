@@ -87,6 +87,10 @@
 	</dependencies>
 
 	<build>
+		<!-- build 이후 file name 지정 -->
+		<finalName>ROOT</finalName>
+		
+		<!-- build에 적용할 각종 plugin 지정 -->
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
