@@ -11,6 +11,8 @@
 	<groupId>spring</groupId>
 	<artifactId>12shoppingmall</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<!-- war file 형식으로 build (jar이 default) -->
+	<packaging>war</packaging>
 	<name>12shoppingmall</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
