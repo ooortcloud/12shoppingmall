@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 
-@Mapper
+// @Mapper
 public interface ProductDao {
 	public int insertProduct(Product product) throws Exception;
 	
