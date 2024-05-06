@@ -16,4 +16,8 @@ public class ProductAllDao {
 	
 	@Autowired
 	private ImagesDao imagesDao;
+	
+	public ProductAllDao() {
+		System.out.println("ProductAllDao instance »ý¼ºµÊ.");
+	}
 }

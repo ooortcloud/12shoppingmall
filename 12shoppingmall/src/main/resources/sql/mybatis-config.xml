@@ -26,7 +26,7 @@
 	 <!-- SQL Definition :: file include -->
 	<mappers>
 		<mapper resource="sql/PurchaseMapper.xml"/>
-		<mapper resource="sql/ProductMapper.xml"/>
+		<mapper resource="/sql/ProductMapper.xml"/>
 		<mapper resource="sql/UserMapper.xml"/>
 		<mapper resource="sql/ShoppingCartMapper.xml" />
 		<mapper resource="sql/ImagesMapper.xml" />
