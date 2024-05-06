@@ -3,7 +3,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 		xmlns:context="http://www.springframework.org/schema/context"
 		xmlns:util="http://www.springframework.org/schema/util"
-
+		xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation=
 				"http://www.springframework.org/schema/beans 
@@ -11,7 +11,9 @@
 				 http://www.springframework.org/schema/context 
 				 http://www.springframework.org/schema/context/spring-context.xsd
 				http://www.springframework.org/schema/util 
-				http://www.springframework.org/schema/util/spring-util.xsd">
+				http://www.springframework.org/schema/util/spring-util.xsd
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+				http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
 	<!-- Spring 3.X  지원하는 SpEL를 사용은 아래와 같이 properties 화일을 등록. 
 			UserController 에서 Spring EL 의 사용법을 이해 할 것-->
@@ -25,4 +27,5 @@
 		<context:exclude-filter type="annotation" 	expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>				
 				
+	<mybatis:scan base-package="com.model2.mvc.service" />
 </beans>

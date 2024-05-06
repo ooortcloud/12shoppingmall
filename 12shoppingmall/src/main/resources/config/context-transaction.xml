@@ -21,6 +21,7 @@
 	</bean>
 
 	<!-- DBCP (Apache Commons Database Connection) 사용 -->
+	<!-- dbcp2 말고 dbcp 사용할 것. -->
 	<bean id="dataSource"	
 				class="org.apache.commons.dbcp.BasicDataSource" >
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
