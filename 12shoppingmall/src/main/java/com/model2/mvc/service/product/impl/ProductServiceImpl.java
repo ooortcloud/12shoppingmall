@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Images;
 import com.model2.mvc.service.domain.Product;
+import com.model2.mvc.service.product.ImagesDao;
 import com.model2.mvc.service.product.ProductAllDao;
 import com.model2.mvc.service.product.ProductDao;
 import com.model2.mvc.service.product.ProductService;
@@ -32,11 +33,17 @@ import com.model2.mvc.service.product.ProductService;
 @Transactional  // transaction metadata 추가
 public class ProductServiceImpl implements ProductService {
 	
-	@Autowired
+	// @Autowired
 	// @Qualifier("productDaoImpl")
 	// @Qualifier("productDao")  // @Mapper interface의 구현체를 받자.
 	// private ProductDao productDao;
 	private ProductAllDao dao;
+	
+	@Autowired
+	private ProductDao testDao1;
+	
+	@Autowired
+	private ImagesDao testDao2;
 	
 	/*
 	public void setProductDao(ProductDao productDao) {
