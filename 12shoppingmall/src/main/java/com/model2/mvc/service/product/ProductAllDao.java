@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import lombok.Getter;
 
 @Getter
-@Component
+// @Component
 public class ProductAllDao {
 	
 	@Autowired
