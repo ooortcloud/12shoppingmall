@@ -3,10 +3,12 @@ package com.model2.mvc.service.product;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 
+@Component
 @Mapper
 public interface ProductDao {
 	public int insertProduct(Product product) throws Exception;

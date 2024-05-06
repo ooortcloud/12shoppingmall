@@ -1,7 +1,10 @@
 
 DROP TABLE transaction;
+DROP TABLE images;
+DROP TABLE shopping_cart;
 DROP TABLE product;
 DROP TABLE users;
+
 
 DROP SEQUENCE seq_product_prod_no;
 DROP SEQUENCE seq_transaction_tran_no;
@@ -151,14 +154,14 @@ insert into product values (seq_product_prod_no.nextval,'연꽃','정원을 가�
 insert into product values (seq_product_prod_no.nextval,'삼성센스','노트북','20120212',600000, 'AHlbAAAAug1vsgAA.jpg',to_date('2012/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'));
 
 -- prod_no는 seq_product_prod_nodp 맞춰 값 바꿔 넣어줄 것
-INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10008');
-INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10009')
-INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10010');
-INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10011');
-INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10012');
-INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10013');
-INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10014');
-INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10015');
+INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10000');
+INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10001')
+INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10002');
+INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10003');
+INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10004');
+INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10005');
+INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10006');
+INSERT INTO images (id, prod_no) VALUES (seq_images_id_no.nextval, '10007');
 
 
 commit;
