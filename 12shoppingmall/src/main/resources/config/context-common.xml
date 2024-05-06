@@ -27,5 +27,7 @@
 		<context:exclude-filter type="annotation" 	expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>				
 				
-	<mybatis:scan base-package="com.model2.mvc.service" />
+	<!-- xml에서 MapperScan의 filtering을 걸어주려면 namespace 정의가 필수적이다.
+	 근데 이거 편하게 하려면 STS3 깔아야 하는데, 그럴바에 @MapperScan을 사용하기로 했다. -->
+	<!--  <mybatis-spring:scan base-package="com.model2.mvc.service" />  -->
 </beans>
