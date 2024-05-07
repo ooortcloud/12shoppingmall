@@ -28,4 +28,8 @@
 		<constructor-arg ref="sqlSessionFactoryBean"/>
 	</bean>
 
+	<bean id="productDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.model2.mvc.service.product.ProductDao"></property>
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
 </beans>
