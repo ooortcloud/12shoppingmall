@@ -28,8 +28,25 @@
 		<constructor-arg ref="sqlSessionFactoryBean"/>
 	</bean>
 
+	<!-- @Mapper의 bean을 생성해주기 위한 작업. 왜 자동으로 적용되지 않는지는 의문 -->
 	<bean id="productDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.model2.mvc.service.product.ProductDao"></property>
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
+	
+	<bean id="imagesDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.model2.mvc.service.product.ImagesDao"></property>
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	
+	<bean id="purchaseDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.model2.mvc.service.purchase.PurchaseDao"></property>
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	
+	<bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.model2.mvc.service.user.UserDao"></property>
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	
 </beans>
