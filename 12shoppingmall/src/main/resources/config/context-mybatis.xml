@@ -49,4 +49,9 @@
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
 	
+	<bean id="shoppingCartDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.model2.mvc.service.purchase.ShoppingCartDao"></property>
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	
 </beans>

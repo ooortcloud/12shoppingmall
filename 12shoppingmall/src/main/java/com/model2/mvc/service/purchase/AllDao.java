@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.model2.mvc.service.product.ProductDao;
-import com.model2.mvc.service.purchase.impl.ShoppingCartDao;
 import com.model2.mvc.service.user.UserDao;
 
 import lombok.Getter;
@@ -23,5 +22,5 @@ public class AllDao {
 	private PurchaseDao purchaseDao;
 	
 	@Autowired
-	private ShoppingCartDao shoppingCartDao;
+	private com.model2.mvc.service.purchase.ShoppingCartDao shoppingCartDao;
 }
